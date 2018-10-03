@@ -2,10 +2,6 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.util.ArrayList;
 
-
-
-
-
 class Brick extends Sprite{
 	//make variables for position and dimensions of brick
 	Model model;
