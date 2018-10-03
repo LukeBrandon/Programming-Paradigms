@@ -24,6 +24,7 @@ public class Game extends JFrame
 		this.addKeyListener(controller);
 	}
 	
+	
 	public void run(){
 		while(true){
 
