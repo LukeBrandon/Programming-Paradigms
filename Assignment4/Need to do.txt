@@ -1,0 +1,10 @@
+Collision: if brick is taller than it is wide, then right side collision doesnt work
+
+make button that switches between drawing brick and placing coin block mode and displays in console
+
+
+
+abstract means you cant make one of them, sprite class abstract but can make things that extend sprite
+
+
+
