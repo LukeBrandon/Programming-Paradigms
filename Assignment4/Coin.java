@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-
 class Coin extends Sprite{
     BufferedImage coinImage = null;
     Model model;
