@@ -8,3 +8,8 @@ abstract means you cant make one of them, sprite class abstract but can make thi
 
 
 
+Goombas
+Turtles
+Bricks look good
+
+
