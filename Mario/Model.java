@@ -29,6 +29,19 @@ class Model{
 		cameraPos = 10;
 	}//end of model constuctor
 
+	Model(Model m){
+		Model copiedModel = new Model();
+		copiedModel.sprites = m.sprites;
+		copiedModel.cameraPos = m.cameraPos;
+		copiedModel.x1 = m.x1;
+		copiedModel.x2 = m.x2;
+		copiedModel.y1 = m.y1;
+		copiedModel.y2 = m.y2;
+		copiedModel.marioIndexINSprites = m.marioIndexInSprites;
+		copiedModel.backgroundImage = m.backgroundImage;
+		copiedModel.backgroundX = m.backgroundX;
+	}
+
 
 	//new modle update method
 	public void update(){
