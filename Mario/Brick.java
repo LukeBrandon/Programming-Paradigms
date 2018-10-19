@@ -17,7 +17,7 @@ class Brick extends Sprite{
 		height = htemp;
 		model = m;
 	}
-
+	
 	//json constructor
 	Brick(Json ob){	
 		xPos = (int)ob.getDouble("x");
