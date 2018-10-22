@@ -37,7 +37,7 @@ class Model{
 		copiedModel.x2 = m.x2;
 		copiedModel.y1 = m.y1;
 		copiedModel.y2 = m.y2;
-		copiedModel.marioIndexINSprites = m.marioIndexInSprites;
+		copiedModel.marioIndexInSprites = m.marioIndexInSprites;
 		copiedModel.backgroundImage = m.backgroundImage;
 		copiedModel.backgroundX = m.backgroundX;
 	}
