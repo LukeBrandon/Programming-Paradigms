@@ -1,10 +1,5 @@
-Collision: if brick is taller than it is wide, then right side collision doesnt work
-
-make button that switches between drawing brick and placing coin block mode and displays in console
-
+Should there be a lastTouchCounter and a vertVel in the sprite class??
+    How do I keep the pushout in the sprite if the lastTouchCounter is moved to mario class
 
 
-abstract means you cant make one of them, sprite class abstract but can make things that extend sprite
-
-
-
+    

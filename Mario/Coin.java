@@ -10,7 +10,6 @@ import java.util.Random;
 
 class Coin extends Sprite{
     BufferedImage coinImage = null;
-    Model model;
     double horVel;
 
     Coin(int x, int y, Model m){
@@ -27,6 +26,13 @@ class Coin extends Sprite{
         horVel = randomHorizontalVelocity();        
     }
 
+    //copy constructor
+    Coin(Coin that, Model newModel){
+        super(that, newModel);
+        this.coinImage = that.coinImage;
+        this.horVel = that.horVel;
+    }
+
     //json constructor
     Coin(Json ob, Model m){	
         xPos = (int)ob.getDouble("x");
@@ -36,7 +42,11 @@ class Coin extends Sprite{
         vertVel = ob.getDouble("vertVel");
         horVel = randomHorizontalVelocity();
         model = m;
-	}
+    }
+    
+    Coin cloneMe(Model newModel){
+        return new Coin(this, newModel);
+    }
 
     void draw(Graphics g, Model model){
         g.drawImage(coinImage, xPos - model.cameraPos, yPos, null);

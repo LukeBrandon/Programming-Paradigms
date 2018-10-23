@@ -14,7 +14,6 @@ class Mario extends Sprite{
 	static Image[] leftMarioImages = null;
     Image marioImage = null;
     int marioCounter;
-    Model model;
     int coins;
 
     Mario(Model m){
@@ -28,6 +27,14 @@ class Mario extends Sprite{
         lazyLoad();
     }
 
+    //copy constructor
+    Mario(Mario that, Model newModel){
+        super(that, newModel);
+        this.marioCounter = that.marioCounter;
+        this.coins = that.coins;
+        this.marioImage = that.marioImage;
+    }
+
     //json contrusctor
     Mario(Json ob, Model m){	
         xPos = (int)ob.getDouble("x");
@@ -38,7 +45,11 @@ class Mario extends Sprite{
         model = m;
         coins = 0;
         lazyLoad();
-	}
+    }
+    
+    Mario cloneMe(Model newModel){
+        return new Mario(this, newModel);
+    }
 
 
     void draw(Graphics g, Model model){
@@ -148,5 +159,7 @@ class Mario extends Sprite{
         marioImage = rightMarioImages[0];   //makes mario appear on startup
     }
 
+    //return type that tells which side it collided on
+    
 
 }//end of class

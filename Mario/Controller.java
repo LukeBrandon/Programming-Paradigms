@@ -78,8 +78,7 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		//if left mouse button presed, then place regular brick
 		if(e.getButton() == MouseEvent.BUTTON1){
 			model.setStart(e.getX(), e.getY());
-		//if righ tmouse button pressed, place coin block
-		}else if(e.getButton() == MouseEvent.BUTTON3){
+		}else if(e.getButton() == MouseEvent.BUTTON3){	//right mouse places coin block
 			placeCoinBlock(e.getX(), e.getY());
 		}else
 			System.out.println("other mouse button pressed");

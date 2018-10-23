@@ -10,7 +10,6 @@ class Model{
 	int cameraPos;
 	Mario mario;	//only instance of mario, instantiated in the unmarshall from JSON file
 	int x1, y1, x2, y2;
-	int marioIndexInSprites;
 	static BufferedImage backgroundImage = null;
 	int backgroundX;
 
@@ -29,17 +28,21 @@ class Model{
 		cameraPos = 10;
 	}//end of model constuctor
 
-	Model(Model m){
-		Model copiedModel = new Model();
-		copiedModel.sprites = m.sprites;
-		copiedModel.cameraPos = m.cameraPos;
-		copiedModel.x1 = m.x1;
-		copiedModel.x2 = m.x2;
-		copiedModel.y1 = m.y1;
-		copiedModel.y2 = m.y2;
-		copiedModel.marioIndexInSprites = m.marioIndexInSprites;
-		copiedModel.backgroundImage = m.backgroundImage;
-		copiedModel.backgroundX = m.backgroundX;
+	Model(Model that){
+		//array list deep copy
+		sprites = new ArrayList<Sprite>();
+		for(int i = 0; i < that.sprites.size(); i++){
+			Sprite other = that.sprites.get(i);
+			Sprite clone = other.cloneMe(this);
+			sprites.add(clone);
+			if(clone.isMario()) mario = (Mario)clone;
+		}
+		this.cameraPos = that.cameraPos;
+		this.x1 = that.x1;
+		this.x2 = that.x2;
+		this.y1 = that.y1;
+		this.y2 = that.y2;
+		this.backgroundX = that.backgroundX;
 	}
 
 
@@ -54,6 +57,7 @@ class Model{
 		}
 	}
 	
+	//making bricks
 	void setStart(int x, int y){
 		x1 = x;
 		y1 = y;
@@ -92,6 +96,30 @@ class Model{
 			System.out.println("There is nothing left to be undone");
 	}	
 
+
+	// double evaluateAction(int action, int depth){
+	// 	// Evaluate the state
+	// 	if(depth >= d)
+	// 		return marioPos + 50 * coins - jumpCount;
+
+	// 	// Simulate the action
+	// 	Model copy = new Model(this); // uses the copy constructor
+	// 	copy.doAction(action);
+	// 	copy.update(); // advance simulated time
+
+	// 	// Recurse
+	// 	if(depth % k != 0)
+	// 	return copy.evaluateAction(action, depth + 1);
+	// 	else
+	// 	{
+	// 	double best = copy.evaluateAction(run, depth + 1);
+	// 	best = Math.max(best,
+	// 		copy.evaluateAction(jump, depth + 1));
+	// 	best = Math.max(best,
+	// 		copy.evaluateAction(wait, depth + 1));
+	// 	return best;
+	// 	}
+	// }
 
 
 	//-----------------JSON------------------------
@@ -134,7 +162,6 @@ class Model{
 				sprites.add(new Brick(tmpList.get(i))); 
 
 			}else if(type.equals("mario")){
-				marioIndexInSprites = i;
 				mario = new Mario(tmpList.get(i), this);
 				sprites.add(mario);
 

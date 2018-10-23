@@ -8,11 +8,25 @@ abstract class Sprite{
     //member variables
     int xPos, yPos, prevX, prevY, width, height, lastTouchCounter;
     double vertVel;
+    Model model;
 
     Sprite(){   }
 
+    Sprite(Sprite that, Model newModel){
+        model = newModel;
+        this.xPos = that.xPos;
+        this.yPos = that.yPos;
+        this.prevX = that.prevX;
+        this.prevY = that.prevY;
+        this.height = that.height;
+        this.width = that.width;
+        this.vertVel = that.vertVel;
+        this.lastTouchCounter = that.lastTouchCounter;
+    }
+
     abstract void draw(Graphics g, Model model);
     abstract void update(ArrayList<Sprite> sprites);
+    abstract Sprite cloneMe(Model model);
 
     //-------------Identity Methods-----------------
     boolean isABrick(){   return false;  }
@@ -82,8 +96,7 @@ abstract class Sprite{
 
         //entering from top
          if(yPos + height >= that.getY() && !(prevY + height > that.getY())){  
-            this.vertVel = 0.0;  
-            this.lastTouchCounter = 0; //not fall through and allow jump
+            this.vertVel = 0.0;
             this.yPos = that.getY() - this.height;
 
         //entering from bottom
@@ -103,6 +116,7 @@ abstract class Sprite{
             System.out.println("Didn't meet any of the directional conditions");
         }
     }//end of push out method
+
 
 
 

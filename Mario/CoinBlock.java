@@ -12,7 +12,6 @@ import java.util.ArrayList;
 class CoinBlock extends Sprite{
     BufferedImage coinBlockImage = null;
     BufferedImage emptyBlockImage = null;
-    Model model;
     int coinCounter;
     boolean ejectCoin;
 
@@ -26,6 +25,13 @@ class CoinBlock extends Sprite{
         coinCounter = 5;
     }
 
+    //copy constructor
+    CoinBlock(CoinBlock that, Model newModel){
+        super(that, newModel);
+        this.coinBlockImage = that.coinBlockImage;
+        this.emptyBlockImage = that.emptyBlockImage;
+    }
+
     //json constructor
     CoinBlock(Json ob, Model m){	
         lazyLoad();
@@ -35,6 +41,10 @@ class CoinBlock extends Sprite{
         height = (int)ob.getDouble("h");
         model = m;
         coinCounter = 5;
+    }
+
+    CoinBlock cloneMe(Model newModel){
+        return new CoinBlock(this, newModel);
     }
 
     void draw(Graphics g, Model model){
