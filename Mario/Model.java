@@ -44,6 +44,7 @@ class Model{
 			sprites.add(clone);
 			if(clone.isMario()) mario = (Mario)clone;
 		}
+		System.out.println("cloned sprites");
 		this.cameraPos = that.cameraPos;
 		this.x1 = that.x1;
 		this.x2 = that.x2;
@@ -105,7 +106,7 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 25;
+		int d = 36;
 		int k = 6;
 
 		// Evaluate the state
@@ -137,8 +138,9 @@ class Model{
 			mario.moveMarioRight();
 		if(action == jump)
 			mario.vertVel = -3.5;
-		if(action == wait)
-			System.out.println("waiting");
+		if(action == wait){}
+			
+			//System.out.println("waiting");
 	}
 
 
