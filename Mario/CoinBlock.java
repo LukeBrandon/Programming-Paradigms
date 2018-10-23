@@ -73,10 +73,6 @@ class CoinBlock extends Sprite{
         ejectCoin = true;
     }
 
-    void placeCoinBlock(int x, int y){
-        Coin coin = new Coin(x,y,model);
-    }
-
     void lazyLoad(){
         if(coinBlockImage == null){
 			try{

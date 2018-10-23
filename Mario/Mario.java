@@ -15,6 +15,7 @@ class Mario extends Sprite{
     Image marioImage = null;
     int marioCounter;
     int coins;
+    int numJumps;
 
     Mario(Model m){
         yPos = 300; //should drop onto the ground some
@@ -23,6 +24,7 @@ class Mario extends Sprite{
         height = 95;
         model = m;
         coins = 0;  //player starts with 0 coins
+        numJumps = 0;
 
         lazyLoad();
     }
@@ -58,8 +60,6 @@ class Mario extends Sprite{
 
 
     void update(ArrayList<Sprite> sprites){
-        String direction;
-
         //accelelerates downwards
         vertVel += 1.3;
         yPos += vertVel;
@@ -158,8 +158,6 @@ class Mario extends Sprite{
 
         marioImage = rightMarioImages[0];   //makes mario appear on startup
     }
-
-    //return type that tells which side it collided on
     
 
-}//end of class
+}//end of Marioclass

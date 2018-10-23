@@ -13,6 +13,13 @@ class Model{
 	static BufferedImage backgroundImage = null;
 	int backgroundX;
 
+	final int run = 0; 
+	final int jump = 1;
+	final int wait = 2;
+	// enum Action{
+    //     run, jump, wait
+    // }
+
 	Model(){
 		sprites = new ArrayList<Sprite>();
 
@@ -97,29 +104,42 @@ class Model{
 	}	
 
 
-	// double evaluateAction(int action, int depth){
-	// 	// Evaluate the state
-	// 	if(depth >= d)
-	// 		return marioPos + 50 * coins - jumpCount;
+	double evaluateAction(int action, int depth){
+		int d = 25;
+		int k = 6;
 
-	// 	// Simulate the action
-	// 	Model copy = new Model(this); // uses the copy constructor
-	// 	copy.doAction(action);
-	// 	copy.update(); // advance simulated time
+		// Evaluate the state
+		if(depth >= d){
+			//favors coins, xPos, and less jumps
+			return mario.xPos + 50 * mario.coins - mario.numJumps; 
+		}
 
-	// 	// Recurse
-	// 	if(depth % k != 0)
-	// 	return copy.evaluateAction(action, depth + 1);
-	// 	else
-	// 	{
-	// 	double best = copy.evaluateAction(run, depth + 1);
-	// 	best = Math.max(best,
-	// 		copy.evaluateAction(jump, depth + 1));
-	// 	best = Math.max(best,
-	// 		copy.evaluateAction(wait, depth + 1));
-	// 	return best;
-	// 	}
-	// }
+		// Simulate the action
+		Model copy = new Model(this); // uses the copy constructor
+		copy.doAction(action);
+		copy.update(); // advance simulated time
+
+		// Recurse 12 steps into the future
+		if(depth % k != 0)
+			return copy.evaluateAction(action, depth + 1);
+		else{
+			double best = copy.evaluateAction(run, depth + 1);
+			best = Math.max(best,
+				copy.evaluateAction(jump, depth + 1));
+			best = Math.max(best,
+				copy.evaluateAction(wait, depth + 1));
+			return best;
+		}
+	}
+
+	void doAction(int action){
+		if(action == run)
+			mario.moveMarioRight();
+		if(action == jump)
+			mario.vertVel = -3.5;
+		if(action == wait)
+			System.out.println("waiting");
+	}
 
 
 	//-----------------JSON------------------------

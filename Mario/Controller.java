@@ -99,6 +99,20 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 
 	//-----------------UPDATE---------------------------
 	void update(){
+		// Evaluate each possible action
+		double score_run = model.evaluateAction(model.run, 0);
+		double score_jump = model.evaluateAction(model.jump, 0);
+		double score_wait = model.evaluateAction(model.wait, 0);
+
+		// Do the best one
+		if(score_run > score_jump && score_run > score_wait)
+			model.doAction(model.run);
+		else if(score_jump > score_wait)
+			model.doAction(model.jump);
+		else
+			model.doAction(model.wait);
+
+		//------START OF NON AI STUFF---------------
 		model.mario.oldPosition();
 
 		if(keyRight){
@@ -119,8 +133,10 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		//checking and executing jumping buffer
 		if(hasBeenPressed.size()>=1){
 			for(int i = 0; i < hasBeenPressed.size(); i++){
-				if(hasBeenPressed.get(i) == "space" && model.mario.lastTouchCounter < 6)
+				if(hasBeenPressed.get(i) == "space" && model.mario.lastTouchCounter < 6){
 					model.mario.vertVel -= 3.5;
+					model.mario.numJumps++;
+				}
 			}
 			while(hasBeenPressed.size()>0){
 				hasBeenPressed.remove(0);

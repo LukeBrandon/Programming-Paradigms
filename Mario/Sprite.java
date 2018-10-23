@@ -97,6 +97,7 @@ abstract class Sprite{
         //entering from top
          if(yPos + height >= that.getY() && !(prevY + height > that.getY())){  
             this.vertVel = 0.0;
+            this.lastTouchCounter = 0;
             this.yPos = that.getY() - this.height;
 
         //entering from bottom
