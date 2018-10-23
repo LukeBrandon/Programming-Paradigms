@@ -14,10 +14,13 @@ class Model{
 	int backgroundX;
 
 	final int run = 0; 
-	final int jump = 1;
-	final int wait = 2;
+	final int runBack = 1;
+	final int jump = 2;
+	final int runAndJump = 3;
 	// enum Action{
-    //     run, jump, wait
+	// 	run, 
+	// 	jump, 
+	// 	wait
     // }
 
 	Model(){
@@ -40,11 +43,11 @@ class Model{
 		sprites = new ArrayList<Sprite>();
 		for(int i = 0; i < that.sprites.size(); i++){
 			Sprite other = that.sprites.get(i);
-			Sprite clone = other.cloneMe(this);
+			Sprite clone = other.cloneMe(that);	//should that be this in this?
 			sprites.add(clone);
 			if(clone.isMario()) mario = (Mario)clone;
 		}
-		System.out.println("cloned sprites");
+		//System.out.println("cloned sprites");
 		this.cameraPos = that.cameraPos;
 		this.x1 = that.x1;
 		this.x2 = that.x2;
@@ -106,13 +109,13 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 36;
-		int k = 6;
+		int d = 15;  //d is the maximum steps in the future to see
+		int k = 3;	//k is the number of steps to go before branching again
 
 		// Evaluate the state
 		if(depth >= d){
 			//favors coins, xPos, and less jumps
-			return mario.xPos + 50 * mario.coins - mario.numJumps; 
+			return mario.xPos + (5000*mario.coins) - (2*mario.numJumps); 
 		}
 
 		// Simulate the action
@@ -120,25 +123,46 @@ class Model{
 		copy.doAction(action);
 		copy.update(); // advance simulated time
 
-		// Recurse 12 steps into the future
+		//checking if supposed to branch
 		if(depth % k != 0)
-			return copy.evaluateAction(action, depth + 1);
+			return copy.evaluateAction(action, depth+1);
 		else{
-			double best = copy.evaluateAction(run, depth + 1);
+			//finds best evaluation of action
+			double best = copy.evaluateAction(run, depth+1);
 			best = Math.max(best,
-				copy.evaluateAction(jump, depth + 1));
+				copy.evaluateAction(jump, depth+1));
 			best = Math.max(best,
-				copy.evaluateAction(wait, depth + 1));
+				copy.evaluateAction(runAndJump, depth+1));
+			best = Math.max(best,
+				copy.evaluateAction(runBack, depth+1));
 			return best;
 		}
 	}
 
-	void doAction(int action){
-		if(action == run)
-			mario.moveMarioRight();
-		if(action == jump)
-			mario.vertVel = -3.5;
-		if(action == wait){}
+	void doAction(int i){
+		if(i == /*Action.*/run){
+			mario.oldPosition();
+			mario.moveMarioRight(); 
+			mario.animateMario("right");
+			//System.out.println("doing run");
+
+		}else if(i == /*Action.*/jump && mario.lastTouchCounter < 7){
+			mario.oldPosition();
+			mario.vertVel = -3.5;  
+			mario.numJumps ++;
+			//System.out.println("doing jump");
+
+		}else if(i == runAndJump && mario.lastTouchCounter < 7){
+			mario.oldPosition();
+			mario.vertVel -= 3.5;
+			mario.moveMarioRight(); 
+			mario.animateMario("right");
+			//System.out.println("doing run and jump");
+		}else{
+			mario.oldPosition();
+			mario.moveMarioLeft();
+			mario.animateMario("left");
+		}
 			
 			//System.out.println("waiting");
 	}
@@ -170,6 +194,7 @@ class Model{
 	//Unmarshaling
     void unmarshal(){
 
+		//Json ob = Json.load("level1.json");
 		Json ob = Json.load("level1.json");
 
 		//create bricks arrayList and temp arrayList

@@ -92,6 +92,8 @@ class Mario extends Sprite{
                     if(collidesBottom(s)){
                         CoinBlock cb = (CoinBlock)s;
                         cb.ejectCoin();
+                        if(cb.coinCounter > 0)
+                            coins++;
                     }
                     pushOut(s);
                 }
@@ -102,7 +104,9 @@ class Mario extends Sprite{
 
         //if mario has falled to his death 
         if(this.yPos > 700)
-            System.exit(0);
+        System.out.println("mario way low");
+
+            //System.exit(0);
 
     }//end of update method
 

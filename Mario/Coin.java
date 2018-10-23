@@ -79,7 +79,7 @@ class Coin extends Sprite{
             //coins get deleted when they fall of screen
             if(s.isACoin() && s.yPos > 700){
                 iterator.remove(); 
-                System.out.println("coin deleted, you didnt get it quick enough");
+                //System.out.println("coin deleted, you didnt get it quick enough");
             }
         }
 

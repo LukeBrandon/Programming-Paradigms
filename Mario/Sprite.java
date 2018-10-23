@@ -114,7 +114,7 @@ abstract class Sprite{
             this.xPos = that.getX() +that.getW();
 
         }else{
-            System.out.println("Didn't meet any of the directional conditions");
+            //System.out.println("Didn't meet any of the directional conditions");
         }
     }//end of push out method
 
