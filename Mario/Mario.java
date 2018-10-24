@@ -35,6 +35,7 @@ class Mario extends Sprite{
         this.marioCounter = that.marioCounter;
         this.coins = that.coins;
         this.marioImage = that.marioImage;
+        lazyLoad();
     }
 
     //json contrusctor
@@ -104,9 +105,7 @@ class Mario extends Sprite{
 
         //if mario has falled to his death 
         if(this.yPos > 700)
-        System.out.println("mario way low");
-
-            //System.exit(0);
+            System.exit(0);
 
     }//end of update method
 
