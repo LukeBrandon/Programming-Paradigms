@@ -109,13 +109,13 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 20;  //d is the maximum steps in the future to see
-		int k = 3;	//k is the number of steps to go before branching again
+		int d = 30;  //d is the maximum steps in the future to see
+		int k = 5;	//k is the number of steps to go before branching again
 
 		// Evaluate the state
 		if(depth >= d){
 			//favors coins, xPos, and less jumps
-			return 2*mario.xPos + (5010*mario.coins) - (100*mario.numJumps); 
+			return ((2*mario.xPos) + (5010*mario.coins) - (100*mario.numJumps)); 
 		}
 
 		// Simulate the action
@@ -148,23 +148,21 @@ class Model{
 
 		}else if(i == /*Action.*/jump && mario.lastTouchCounter < 7){
 			mario.oldPosition();
-			mario.vertVel = -3.5;  
+			mario.vertVel = -12.0;  
 			mario.numJumps ++;
 			//System.out.println("doing jump");
 
 		}else if(i == runAndJump && mario.lastTouchCounter < 7){
 			mario.oldPosition();
-			mario.vertVel -= 3.5;
+			mario.vertVel = -12.0;
 			mario.moveMarioRight(); 
 			mario.animateMario("right");
 			//System.out.println("doing run and jump");
 		}else{
-			mario.oldPosition();
-			mario.moveMarioLeft();
-			mario.animateMario("left");
+			// mario.oldPosition();
+			// mario.moveMarioLeft();
+			// mario.animateMario("left");
 		}
-			
-			//System.out.println("waiting");
 	}
 
 
@@ -195,7 +193,7 @@ class Model{
     void unmarshal(){
 
 		//Json ob = Json.load("level1.json");
-		Json ob = Json.load("levelDebug.json");
+		Json ob = Json.load("level1.json");
 
 		//create bricks arrayList and temp arrayList
 		sprites = new ArrayList<Sprite>();

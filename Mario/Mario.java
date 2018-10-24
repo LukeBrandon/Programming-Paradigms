@@ -83,7 +83,7 @@ class Mario extends Sprite{
                 if(s!= this && collides(s)){
                     iterator.remove();
                     coins++;
-                    System.out.println("Coins: " + coins);
+                    //System.out.println("Coins: " + coins);
                 }
             }
 
