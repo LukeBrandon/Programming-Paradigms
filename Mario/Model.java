@@ -115,7 +115,7 @@ class Model{
 		// Evaluate the state
 		if(depth >= d){
 			//favors coins, xPos, and less jumps
-			return mario.xPos + (5000*mario.coins) - (2*mario.numJumps); 
+			return 2*mario.xPos + (5010*mario.coins) - (3*mario.numJumps); 
 		}
 
 		// Simulate the action
@@ -159,9 +159,9 @@ class Model{
 			mario.animateMario("right");
 			//System.out.println("doing run and jump");
 		}else{
-			mario.oldPosition();
-			mario.moveMarioLeft();
-			mario.animateMario("left");
+			// mario.oldPosition();
+			// mario.moveMarioLeft();
+			// mario.animateMario("left");
 		}
 			
 			//System.out.println("waiting");
