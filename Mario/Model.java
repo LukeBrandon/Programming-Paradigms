@@ -109,7 +109,7 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 15;  //d is the maximum steps in the future to see
+		int d = 20;  //d is the maximum steps in the future to see
 		int k = 3;	//k is the number of steps to go before branching again
 
 		// Evaluate the state
@@ -159,9 +159,9 @@ class Model{
 			mario.animateMario("right");
 			//System.out.println("doing run and jump");
 		}else{
-			mario.oldPosition();
-			mario.moveMarioLeft();
-			mario.animateMario("left");
+			// mario.oldPosition();
+			// mario.moveMarioLeft();
+			// mario.animateMario("left");
 		}
 			
 			//System.out.println("waiting");

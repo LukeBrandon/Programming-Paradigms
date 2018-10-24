@@ -2,4 +2,4 @@ Should there be a lastTouchCounter and a vertVel in the sprite class??
     How do I keep the pushout in the sprite if the lastTouchCounter is moved to mario class
 
 
-    
+Add possibility where mario stops running while in the air?
