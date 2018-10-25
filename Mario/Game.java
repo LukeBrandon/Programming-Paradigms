@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 import java.awt.Toolkit;
-import java.lang.Object;
 
 public class Game extends JFrame
 {
@@ -52,4 +51,5 @@ public class Game extends JFrame
 		Game g = new Game();
 		g.run();
 	}
-}
+
+}//end of game class

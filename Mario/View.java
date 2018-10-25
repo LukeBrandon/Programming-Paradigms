@@ -1,6 +1,5 @@
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.awt.Color;
 
 class View extends JPanel{
 	Model model;

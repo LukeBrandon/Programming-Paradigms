@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.IOException;
-import java.awt.Graphics;
+
 
 class Model{
 	ArrayList<Sprite> sprites;	
@@ -111,7 +110,7 @@ class Model{
 		// Base case and evaluate the state
 		if(depth >= d){
 			//favors coins, xPos, and less jumps
-			return ((5000*mario.coins) + (mario.xPos) - (100*mario.numJumps)); 
+			return ((5000*mario.coins) + (cameraPos) - (100*mario.numJumps)); 
 		}
 
 		// Simulate the action
