@@ -62,7 +62,9 @@ class Mario extends Sprite{
 
     void update(ArrayList<Sprite> sprites){
         //accelelerates downwards
-        vertVel += 1.3;
+       // vertVel += 1.3;
+        vertVel += 3.0; //stronger gravity it order to make jumped takes less time 
+            //so AI can see far enough ahead
         yPos += vertVel;
         lastTouchCounter++; //used for dynamic jumped heights
 

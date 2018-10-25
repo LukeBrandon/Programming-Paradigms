@@ -149,13 +149,13 @@ class Model{
 
 		}else if(i == /*Action.*/jump && mario.lastTouchCounter < 7){
 			mario.oldPosition();
-			mario.vertVel = -12.0;  
+			mario.vertVel = -20.0;  	//fast to jumping is quick so AI can see ahead better
 			mario.numJumps ++;
 			//System.out.println("doing jump");
 
 		}else if(i == runAndJump && mario.lastTouchCounter < 7){
 			mario.oldPosition();
-			mario.vertVel = -12.0;
+			mario.vertVel = -20.0;
 			mario.moveMarioRight(); 
 			mario.animateMario("right");
 			//System.out.println("doing run and jump");
@@ -194,7 +194,7 @@ class Model{
     void unmarshal(){
 
 		//Json ob = Json.load("level1.json");
-		Json ob = Json.load("level1.json");
+		Json ob = Json.load("levelDebug.json");
 
 		//create bricks arrayList and temp arrayList
 		sprites = new ArrayList<Sprite>();
