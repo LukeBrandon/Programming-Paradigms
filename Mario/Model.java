@@ -109,8 +109,9 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 30;  //d is the maximum steps in the future to see
-		int k = 5;	//k is the number of steps to go before branching again
+		int d = 28;  //d is the maximum steps in the future to see
+		int k = 6;	//k is the number of steps to go before branching again
+		//brances d/k times and sees d moves ahead
 
 		// Evaluate the state
 		if(depth >= d){
