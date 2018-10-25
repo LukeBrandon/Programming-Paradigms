@@ -143,7 +143,6 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 			for(int i = 0; i < hasBeenPressed.size(); i++){
 				if(hasBeenPressed.get(i) == "space" && model.mario.lastTouchCounter < 6){
 					model.mario.vertVel -= 3.5;
-					model.mario.numJumps++;
 				}
 			}
 			while(hasBeenPressed.size()>0){

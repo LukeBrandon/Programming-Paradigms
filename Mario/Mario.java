@@ -139,6 +139,10 @@ class Mario extends Sprite{
 		}
     }
 
+    void jump(){
+        vertVel -= 2.0;
+    }
+
     void lazyLoad(){
         //lazy loading mario Images
 		if(rightMarioImages == null){

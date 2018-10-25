@@ -14,9 +14,8 @@ class Model{
 	int backgroundX;
 
 	final int run = 0; 
-	final int runBack = 1;
-	final int jump = 2;
-	final int runAndJump = 3;
+	final int jump = 1;
+	final int runAndJump = 2;
 
 
 	Model(){
@@ -105,11 +104,11 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 6;  //d is the maximum steps in the future to see
+		int d = 1;  //d is the maximum steps in the future to see
 		int k = 1;	//k is the number of steps to go before branching again
 		//brances d/k times and sees d moves ahead
 
-		// Evaluate the state
+		// Base case and evaluate the state
 		if(depth >= d){
 			//favors coins, xPos, and less jumps
 			return ((5000*mario.coins) + (mario.xPos) - (100*mario.numJumps)); 
@@ -130,35 +129,31 @@ class Model{
 				copy.evaluateAction(jump, depth+1));
 			best = Math.max(best,
 				copy.evaluateAction(runAndJump, depth+1));
-			best = Math.max(best,
-				copy.evaluateAction(runBack, depth+1));
 			return best;
 		}
 	}
 
 	void doAction(int i){
-		if(i == /*Action.*/run){
+		if(i == run){
 			mario.oldPosition();
 			mario.moveMarioRight(); 
 			mario.animateMario("right");
 			//System.out.println("doing run");
 
-		}else if(i == /*Action.*/jump && mario.lastTouchCounter < 7){
+		}else if(i == jump && mario.lastTouchCounter < 7){
 			mario.oldPosition();
-			mario.vertVel = -20.0;  	//fast to jumping is quick so AI can see ahead better
+			//mario.vertVel = -20.0;  	//fast to jumping is quick so AI can see ahead better
+			mario.jump();
 			mario.numJumps ++;
 			//System.out.println("doing jump");
 
-		}else if(i == runAndJump && mario.lastTouchCounter < 7){
-			mario.oldPosition();
-			mario.vertVel = -20.0;
-			mario.moveMarioRight(); 
-			mario.animateMario("right");
-			//System.out.println("doing run and jump");
 		}else{
-			// mario.oldPosition();
-			// mario.moveMarioLeft();
-			// mario.animateMario("left");
+			if(mario.lastTouchCounter < 7){
+				mario.oldPosition();
+				mario.vertVel = -20.0;
+				mario.moveMarioRight(); 
+				mario.animateMario("right");
+			}
 		}
 	}
 
