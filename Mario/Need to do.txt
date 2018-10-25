@@ -3,5 +3,5 @@ Should there be a lastTouchCounter and a vertVel in the sprite class??
 
 
 
-Copy constructorsmust not be working since the values of the run and jump are over
+Copy constructors must not be working since the values of the run and jump are over
 lapping when they shouldnt be

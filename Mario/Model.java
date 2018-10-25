@@ -36,10 +36,10 @@ class Model{
 		//array list deep copy
 		sprites = new ArrayList<Sprite>();
 		for(int i = 0; i < that.sprites.size(); i++){
-			Sprite other = that.sprites.get(i);
-			Sprite clone = other.cloneMe(that);	//should that be this in this?
+			Sprite clone = that.sprites.get(i).cloneMe(this);	//should that be this in this?
 			sprites.add(clone);
-			if(clone.isMario()) mario = (Mario)clone;
+			if(clone.isMario()) 
+				mario = (Mario)clone;
 		}
 		//System.out.println("cloned sprites");
 		this.cameraPos = that.cameraPos;
@@ -48,6 +48,7 @@ class Model{
 		this.y1 = that.y1;
 		this.y2 = that.y2;
 		this.backgroundX = that.backgroundX;
+		this.unmarshal();
 	}
 
 
