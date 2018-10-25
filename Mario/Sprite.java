@@ -102,7 +102,7 @@ abstract class Sprite{
 
         //entering from bottom
         }else if(yPos <= that.getY() + that.getH() && !(prevY < that.getY() + that.getH())){ 
-            this.vertVel=0.2; 
+            this.vertVel = 1.0; 
             this.yPos = that.getY() + that.getH()+3;
 
         //entering from left

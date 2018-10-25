@@ -35,6 +35,7 @@ class Mario extends Sprite{
         this.marioCounter = that.marioCounter;
         this.coins = that.coins;
         this.marioImage = that.marioImage;
+        this.numJumps = that.numJumps;
         lazyLoad();
     }
 
@@ -84,7 +85,7 @@ class Mario extends Sprite{
             if(s.isACoin()){
                 if(s!= this && collides(s)){
                     iterator.remove();
-                    coins++;
+                    //coins++;
                     //System.out.println("Coins: " + coins);
                 }
             }

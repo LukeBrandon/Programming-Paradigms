@@ -17,11 +17,7 @@ class Model{
 	final int runBack = 1;
 	final int jump = 2;
 	final int runAndJump = 3;
-	// enum Action{
-	// 	run, 
-	// 	jump, 
-	// 	wait
-    // }
+
 
 	Model(){
 		sprites = new ArrayList<Sprite>();
@@ -109,14 +105,14 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 28;  //d is the maximum steps in the future to see
-		int k = 6;	//k is the number of steps to go before branching again
+		int d = 6;  //d is the maximum steps in the future to see
+		int k = 1;	//k is the number of steps to go before branching again
 		//brances d/k times and sees d moves ahead
 
 		// Evaluate the state
 		if(depth >= d){
 			//favors coins, xPos, and less jumps
-			return ((2*mario.xPos) + (5010*mario.coins) - (100*mario.numJumps)); 
+			return ((5000*mario.coins) + (mario.xPos) - (100*mario.numJumps)); 
 		}
 
 		// Simulate the action
@@ -124,7 +120,7 @@ class Model{
 		copy.doAction(action);
 		copy.update(); // advance simulated time
 
-		//checking if supposed to branch
+		//does same action unless its been k times of that action
 		if(depth % k != 0)
 			return copy.evaluateAction(action, depth+1);
 		else{
