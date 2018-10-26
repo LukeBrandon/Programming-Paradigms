@@ -36,7 +36,7 @@ class Model{
 		//array list deep copy
 		sprites = new ArrayList<Sprite>();
 		for(int i = 0; i < that.sprites.size(); i++){
-			Sprite clone = that.sprites.get(i).cloneMe(this);	//should that be this in this?
+			Sprite clone = that.sprites.get(i).cloneMe(that);	//should that be this in this?
 			sprites.add(clone);
 			if(clone.isMario()) 
 				mario = (Mario)clone;
@@ -104,14 +104,14 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 1;  //d is the maximum steps in the future to see
-		int k = 1;	//k is the number of steps to go before branching again
+		int d = 9;  //d is the maximum steps in the future to see
+		int k = 3;	//k is the number of steps to go before branching again
 		//brances d/k times and sees d moves ahead
 
 		// Base case and evaluate the state
 		if(depth >= d){
 			//favors coins, xPos, and less jumps
-			return ((5000*mario.coins) + (cameraPos) - (100*mario.numJumps)); 
+			return ((5000*mario.coins) + (mario.xPos-250) - (100*mario.numJumps)); 
 		}
 
 		// Simulate the action
@@ -124,11 +124,11 @@ class Model{
 			return copy.evaluateAction(action, depth+1);
 		else{
 			//finds best evaluation of action
-			double best = copy.evaluateAction(run, depth+1);
-			best = Math.max(best,
-				copy.evaluateAction(jump, depth+1));
+			double best = copy.evaluateAction(jump, depth+1);
 			best = Math.max(best,
 				copy.evaluateAction(runAndJump, depth+1));
+			best = Math.max(best,
+				copy.evaluateAction(run, depth+1));
 			return best;
 		}
 	}
@@ -150,7 +150,7 @@ class Model{
 		}else{
 			if(mario.lastTouchCounter < 7){
 				mario.oldPosition();
-				mario.vertVel = -20.0;
+				mario.jump();
 				mario.moveMarioRight(); 
 				mario.animateMario("right");
 				mario.numJumps++;
