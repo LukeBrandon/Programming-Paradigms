@@ -102,7 +102,7 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		// Evaluate each possible action
 		double score_run = model.evaluateAction(model.run, 0);
 		double score_jump = model.evaluateAction(model.jump, 0);
-		double score_run_and_jump = 0;//model.evaluateAction(model.runAndJump, 0);
+		double score_run_and_jump = model.evaluateAction(model.runAndJump, 0);
 
 		//double score_run_back = model.evaluateAction(model.runBack, 0);
 

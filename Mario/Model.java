@@ -153,6 +153,7 @@ class Model{
 				mario.vertVel = -20.0;
 				mario.moveMarioRight(); 
 				mario.animateMario("right");
+				mario.numJumps++;
 			}
 		}
 	}

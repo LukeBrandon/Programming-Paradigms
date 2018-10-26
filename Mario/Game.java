@@ -35,8 +35,8 @@ public class Game extends JFrame
 			//sleep for 20 ms or 50 fps
 			//sleep for 16ms for 60 fps
 			try{
-				Thread.sleep(30);
-				//Thread.sleep(250);
+				//Thread.sleep(30);
+				Thread.sleep(250);
 			}catch(Exception e){
 				e.printStackTrace();
 				System.exit(1);
