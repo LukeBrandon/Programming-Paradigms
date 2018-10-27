@@ -139,7 +139,7 @@ class Mario extends Sprite{
     }
 
     void jump(){
-        vertVel -= 2.0;
+        vertVel = -12.0;
     }
 
     void lazyLoad(){

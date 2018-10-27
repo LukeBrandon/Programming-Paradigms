@@ -26,29 +26,28 @@ class Model{
 				backgroundImage = ImageIO.read(new File("background.png"));
 			}catch(Exception e){}
 		}
-
 		this.unmarshal();
 		backgroundX = 0;
 		cameraPos = 10;
 	}//end of model constuctor
 
-	Model(Model that){
+	Model(Model old){
 		//array list deep copy
-		sprites = new ArrayList<Sprite>();
-		for(int i = 0; i < that.sprites.size(); i++){
-			Sprite clone = that.sprites.get(i).cloneMe(that);	//should that be this in this?
-			sprites.add(clone);
+		this.sprites = new ArrayList<Sprite>();
+		for(int i = 0; i < old.sprites.size(); i++){
+			Sprite clone = old.sprites.get(i).cloneMe(this);	//should that be this in this?
+			this.sprites.add(clone);
 			if(clone.isMario()) 
-				mario = (Mario)clone;
+				this.mario = (Mario)clone;
 		}
 		//System.out.println("cloned sprites");
-		this.cameraPos = that.cameraPos;
-		this.x1 = that.x1;
-		this.x2 = that.x2;
-		this.y1 = that.y1;
-		this.y2 = that.y2;
-		this.backgroundX = that.backgroundX;
-		this.unmarshal();
+		this.cameraPos = old.cameraPos;
+		this.x1 = old.x1;
+		this.x2 = old.x2;
+		this.y1 = old.y1;
+		this.y2 = old.y2;
+		this.backgroundX = old.backgroundX;
+		//this.unmarshal();
 	}
 
 
@@ -104,7 +103,7 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 9;  //d is the maximum steps in the future to see
+		int d = 12;  //d is the maximum steps in the future to see
 		int k = 3;	//k is the number of steps to go before branching again
 		//brances d/k times and sees d moves ahead
 
