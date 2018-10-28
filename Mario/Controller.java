@@ -99,11 +99,11 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 
 	//-----------------UPDATE---------------------------
 	void update(){
-		// Evaluate each possible action
+		model.mario.oldPosition();
+		//Evaluate each possible action
 		double score_run = model.evaluateAction(model.run, 0);
 		double score_jump = model.evaluateAction(model.jump, 0);
 		double score_run_and_jump = model.evaluateAction(model.runAndJump, 0);
-
 		//double score_run_back = model.evaluateAction(model.runBack, 0);
 
 		System.out.println("Run Score: " + score_run);
@@ -121,7 +121,7 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 
 
 		//------START OF NON AI STUFF---------------
-		model.mario.oldPosition();
+		//model.mario.oldPosition();
 
 		if(keyRight){
 			model.mario.moveMarioRight(); model.mario.animateMario("right");
@@ -133,7 +133,7 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		if(keyL) model.unmarshal();		//loads the map from map.json
 		if(keyE) model.erase();			//erases the map by loading an empty map
 		if(keyZ) model.undo();			//undoes a brick placement
-		if(keySpace) {
+		if(keySpace && model.mario.lastTouchCounter < 6) {
 			hasBeenPressed.add(hasBeenPressed.size(),"space");
 		}
 
@@ -142,16 +142,15 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		if(hasBeenPressed.size()>=1){
 			for(int i = 0; i < hasBeenPressed.size(); i++){
 				if(hasBeenPressed.get(i) == "space" && model.mario.lastTouchCounter < 6){
-					model.mario.vertVel -= 3.5;
+					model.mario.jump();
 				}
 			}
 			while(hasBeenPressed.size()>0){
-				hasBeenPressed.remove(0);
+				hasBeenPressed.remove(0);  //removes all after they were evaluated
 			}
 		}	
 		
 	}//end of update method
-	
 	
 
 }

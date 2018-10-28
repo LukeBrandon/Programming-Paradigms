@@ -13,8 +13,8 @@ class Brick extends Sprite{
 	}
 	
 	//copy constructor
-	Brick(Brick that, Model newModel){
-        super(that, newModel);
+	Brick(Brick old, Model newModel){
+        super(old, newModel);
     }
 
 	//json constructor

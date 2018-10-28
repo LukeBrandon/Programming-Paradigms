@@ -10,13 +10,12 @@ import java.util.Random;
 class Coin extends Sprite{
     BufferedImage coinImage = null;
     double horVel;
+    double vertVel;
 
     Coin(int x, int y, Model m){
         model = m;
-
         lazyLoad();
 
-        //temporary test coin loaction
         xPos = x;
         yPos = y;
         width = coinImage.getWidth();
@@ -26,10 +25,11 @@ class Coin extends Sprite{
     }
 
     //copy constructor
-    Coin(Coin that, Model newModel){
-        super(that, newModel);
-        this.coinImage = that.coinImage;
-        this.horVel = that.horVel;
+    Coin(Coin old, Model newModel){
+        super(old, newModel);
+        this.coinImage = old.coinImage;
+        this.vertVel = old.vertVel;
+        this.horVel = old.horVel;
     }
 
     //json constructor
@@ -38,7 +38,6 @@ class Coin extends Sprite{
         yPos = (int)ob.getDouble("y");
         width = (int)ob.getDouble("w");
         height = (int)ob.getDouble("h");
-        vertVel = ob.getDouble("vertVel");
         horVel = randomHorizontalVelocity();
         model = m;
     }
@@ -66,22 +65,11 @@ class Coin extends Sprite{
         while(iterator.hasNext()){
             Sprite s = iterator.next();
 
-            //coins collide with bricks
-            /*
-            if(s.isABrick()){
-                if(s!= this && collides(s)){
-                    pushOut(s);
-                }
-            }
-            */
-
             //coins get deleted when they fall of screen
             if(s.isACoin() && s.yPos > 700){
                 iterator.remove(); 
-                //System.out.println("coin deleted, you didnt get it quick enough");
             }
         }
-
 
     }//end update method
 

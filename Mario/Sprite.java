@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 abstract class Sprite{
     //member variables
-    int xPos, yPos, prevX, prevY, width, height, lastTouchCounter;
-    double vertVel;
+    int xPos, yPos, prevX, prevY, width, height;
     Model model;
 
     Sprite(){   }
@@ -20,8 +19,6 @@ abstract class Sprite{
         this.prevY = that.prevY;
         this.height = that.height;
         this.width = that.width;
-        this.vertVel = that.vertVel;
-        this.lastTouchCounter = that.lastTouchCounter;
     }
 
     abstract void draw(Graphics g, Model model);
@@ -92,30 +89,32 @@ abstract class Sprite{
 
 
     //return type that tells which side it collided on
-    void pushOut(Sprite that){
+    String pushOut(Sprite that){
 
         //entering from top
          if(yPos + height >= that.getY() && !(prevY + height > that.getY())){  
-            this.vertVel = 0.0;
-            this.lastTouchCounter = 0;
             this.yPos = that.getY() - this.height;
+            return "top";
 
         //entering from bottom
-        }else if(yPos <= that.getY() + that.getH() && !(prevY < that.getY() + that.getH())){ 
-            this.vertVel = 1.0; 
+        }else if(yPos <= that.getY() + that.getH() && !(prevY < that.getY() + that.getH())){  
             this.yPos = that.getY() + that.getH()+3;
+            return "bottom";
 
         //entering from left
         }else if(xPos + width >= that.getX() && !(prevX + width > that.getX()) ){
             this.xPos = that.getX()  -this.width;   
+            return "left";
 
         //entering from right
         }else if(xPos <= (that.getX() + that.getW()) && !(prevX < (that.getX() + that.getW()) )){ 
             this.xPos = that.getX() +that.getW();
+            return "right";
 
         }else{
             //System.out.println("Didn't meet any of the directional conditions");
         }
+        return "not";
     }//end of push out method
 
 
@@ -131,10 +130,8 @@ abstract class Sprite{
 			ob.add("type", "brick");
 		}else if(isMario()){
 			ob.add("type", "mario"); 
-			ob.add("vertVel", vertVel);
 		}else if(isACoin()){
 			ob.add("type", "coin");
-			ob.add("vertVel", vertVel);
 		}else if(isACoinBlock()){
 			ob.add("type", "coinBlock");
 		}

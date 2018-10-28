@@ -47,7 +47,6 @@ class Model{
 		this.y1 = old.y1;
 		this.y2 = old.y2;
 		this.backgroundX = old.backgroundX;
-		//this.unmarshal();
 	}
 
 
@@ -103,14 +102,19 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 12;  //d is the maximum steps in the future to see
-		int k = 3;	//k is the number of steps to go before branching again
+		int d = 24;  //d is the maximum steps in the future to see
+		int k = 4;	//k is the number of steps to go before branching again
 		//brances d/k times and sees d moves ahead
 
 		// Base case and evaluate the state
 		if(depth >= d){
-			//favors coins, xPos, and less jumps
-			return ((5000*mario.coins) + (mario.xPos-250) - (100*mario.numJumps)); 
+			//favors xPos, coins, less jumps, and no dead
+			int deceased = 0;
+			if(mario.dead == true)
+				deceased = 1;
+			else
+				deceased = 0;
+			return ((5000*mario.coins)+(mario.xPos-250)-(10*mario.numJumps)-(1000000*deceased)); 
 		}
 
 		// Simulate the action
@@ -137,14 +141,11 @@ class Model{
 			mario.oldPosition();
 			mario.moveMarioRight(); 
 			mario.animateMario("right");
-			//System.out.println("doing run");
 
 		}else if(i == jump && mario.lastTouchCounter < 7){
 			mario.oldPosition();
-			//mario.vertVel = -20.0;  	//fast to jumping is quick so AI can see ahead better
 			mario.jump();
 			mario.numJumps ++;
-			//System.out.println("doing jump");
 
 		}else{
 			if(mario.lastTouchCounter < 7){
@@ -183,9 +184,8 @@ class Model{
 
 	//Unmarshaling
     void unmarshal(){
-
-		//Json ob = Json.load("level1.json");
-		Json ob = Json.load("levelDebug.json");
+		Json ob = Json.load("level1.json");
+		//Json ob = Json.load("levelDebug.json");
 
 		//create bricks arrayList and temp arrayList
 		sprites = new ArrayList<Sprite>();

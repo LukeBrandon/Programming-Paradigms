@@ -12,8 +12,8 @@ import java.util.ArrayList;
 class CoinBlock extends Sprite{
     BufferedImage coinBlockImage = null;
     BufferedImage emptyBlockImage = null;
-    int coinCounter;
-    boolean ejectCoin;
+    int coinCount;
+    boolean blockHit;
 
     CoinBlock(int x, int y, Model m){
         lazyLoad();
@@ -22,14 +22,17 @@ class CoinBlock extends Sprite{
         xPos = x;
         yPos = y;
         model = m;
-        coinCounter = 5;
+        coinCount = 5;
+        blockHit = false;
     }
 
     //copy constructor
-    CoinBlock(CoinBlock that, Model newModel){
-        super(that, newModel);
-        this.coinBlockImage = that.coinBlockImage;
-        this.emptyBlockImage = that.emptyBlockImage;
+    CoinBlock(CoinBlock old, Model newModel){
+        super(old, newModel);
+        this.coinBlockImage = old.coinBlockImage;
+        this.emptyBlockImage = old.emptyBlockImage;
+        this.blockHit = old.blockHit;
+        this.coinCount = old.coinCount;
     }
 
     //json constructor
@@ -40,7 +43,7 @@ class CoinBlock extends Sprite{
         width = (int)ob.getDouble("w");
         height = (int)ob.getDouble("h");
         model = m;
-        coinCounter = 5;
+        coinCount = 5;
     }
 
     CoinBlock cloneMe(Model newModel){
@@ -48,19 +51,19 @@ class CoinBlock extends Sprite{
     }
 
     void draw(Graphics g, Model model){
-        if(coinCounter>0)
+        if(coinCount>0)
             g.drawImage(coinBlockImage, xPos - model.cameraPos, yPos, null);
         else    
             g.drawImage(emptyBlockImage, xPos - model.cameraPos, yPos, null);
     }
 
     void update(ArrayList<Sprite> sprites){
-
-        if(coinCounter > 0 && ejectCoin == true){
+        //checking if hit by mario
+        if(coinCount > 0 && blockHit == true){
             Coin coin = new Coin(this.xPos+7, this.yPos-35, model);
             sprites.add(coin);
-            coinCounter--;
-            ejectCoin = false;
+            coinCount--;
+            blockHit = false;
         }
     }
 
@@ -70,7 +73,7 @@ class CoinBlock extends Sprite{
     }
 
     void ejectCoin(){
-        ejectCoin = true;
+        blockHit = true;
     }
 
     void lazyLoad(){
