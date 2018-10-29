@@ -106,16 +106,15 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		double score_run_and_jump = model.evaluateAction(model.runAndJump, 0);
 		//double score_run_back = model.evaluateAction(model.runBack, 0);
 
-		System.out.println("Run Score: " + score_run);
-		System.out.println("Jump Score: " + score_jump);
-		System.out.println("Run and Jump Score: " + score_run_and_jump);
-		System.out.println("--------------------------------------");
 
 		// Do the best one
-		if(score_run > score_jump && score_run > score_run_and_jump)
+		if(score_run > score_jump && score_run > score_run_and_jump /*&&
+			 score_run > score_run_back*/)
 			model.doAction(model.run);
-		else if(score_jump > score_run_and_jump)
+		else if(score_jump > score_run_and_jump /*&& score_jump > score_run_back*/)
 			model.doAction(model.jump);
+		//else if(score_run_and_jump > score_run_back)
+		//	model.doAction(model.runAndJump);
 		else
 			model.doAction(model.runAndJump);
 

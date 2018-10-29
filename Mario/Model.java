@@ -15,6 +15,7 @@ class Model{
 	final int run = 0; 
 	final int jump = 1;
 	final int runAndJump = 2;
+	final int runBack = 3;
 
 
 	Model(){
@@ -102,13 +103,13 @@ class Model{
 
 
 	double evaluateAction(int action, int depth){
-		int d = 24;  //d is the maximum steps in the future to see
+		int d = 22;  //d is the maximum steps in the future to see
 		int k = 4;	//k is the number of steps to go before branching again
 		//brances d/k times and sees d moves ahead
 
 		// Base case and evaluate the state
 		if(depth >= d){
-			//favors xPos, coins, less jumps, and no dead
+			//favors xPos, coins, less jumps, and not dead
 			int deceased = 0;
 			if(mario.dead == true)
 				deceased = 1;
@@ -132,6 +133,8 @@ class Model{
 				copy.evaluateAction(runAndJump, depth+1));
 			best = Math.max(best,
 				copy.evaluateAction(run, depth+1));
+			//best = Math.max(best,
+			//	copy.evaluateAction(runBack, depth+1));
 			return best;
 		}
 	}
@@ -147,7 +150,7 @@ class Model{
 			mario.jump();
 			mario.numJumps ++;
 
-		}else{
+		}else/* if (i == runAndJump && mario.lastTouchCounter < 7)*/{
 			if(mario.lastTouchCounter < 7){
 				mario.oldPosition();
 				mario.jump();
@@ -156,6 +159,11 @@ class Model{
 				mario.numJumps++;
 			}
 		}
+		// else{ // run back
+		// 	mario.oldPosition();
+		// 	mario.moveMarioRight();
+		// 	mario.animateMario("left");
+		// }
 	}
 
 
