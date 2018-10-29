@@ -12,12 +12,6 @@ class Model{
 	static BufferedImage backgroundImage = null;
 	int backgroundX;
 
-	final int run = 0; 
-	final int jump = 1;
-	final int runAndJump = 2;
-	final int runBack = 3;
-
-
 	Model(){
 		sprites = new ArrayList<Sprite>();
 
@@ -102,7 +96,7 @@ class Model{
 	}	
 
 
-	double evaluateAction(int action, int depth){
+	double evaluateAction(Action action, int depth){
 		int d = 22;  //d is the maximum steps in the future to see
 		int k = 4;	//k is the number of steps to go before branching again
 		//brances d/k times and sees d moves ahead
@@ -115,7 +109,7 @@ class Model{
 				deceased = 1;
 			else
 				deceased = 0;
-			return ((5000*mario.coins)+(mario.xPos-250)-(10*mario.numJumps)-(1000000*deceased)); 
+			return ((5000*mario.coins)+(mario.xPos-250)-(10*mario.numJumps)-(10000000*deceased)); 
 		}
 
 		// Simulate the action
@@ -128,24 +122,22 @@ class Model{
 			return copy.evaluateAction(action, depth+1);
 		else{
 			//finds best evaluation of action
-			double best = copy.evaluateAction(jump, depth+1);
+			double best = copy.evaluateAction(action.jump, depth+1);
 			best = Math.max(best,
-				copy.evaluateAction(runAndJump, depth+1));
+				copy.evaluateAction(action.runAndJump, depth+1));
 			best = Math.max(best,
-				copy.evaluateAction(run, depth+1));
-			//best = Math.max(best,
-			//	copy.evaluateAction(runBack, depth+1));
+				copy.evaluateAction(action.run, depth+1));
 			return best;
 		}
 	}
 
-	void doAction(int i){
-		if(i == run){
+	void doAction(Action i){
+		if(i == Action.run){
 			mario.oldPosition();
 			mario.moveMarioRight(); 
 			mario.animateMario("right");
 
-		}else if(i == jump && mario.lastTouchCounter < 7){
+		}else if(i == Action.jump && mario.lastTouchCounter < 7){
 			mario.oldPosition();
 			mario.jump();
 			mario.numJumps ++;

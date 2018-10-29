@@ -1,4 +1,4 @@
-enum Actions{
+enum Action{
     run,
     jump, 
     runAndJump

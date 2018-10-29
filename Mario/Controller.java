@@ -101,22 +101,19 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 	void update(){
 		model.mario.oldPosition();
 		//Evaluate each possible action
-		double score_run = model.evaluateAction(model.run, 0);
-		double score_jump = model.evaluateAction(model.jump, 0);
-		double score_run_and_jump = model.evaluateAction(model.runAndJump, 0);
-		//double score_run_back = model.evaluateAction(model.runBack, 0);
+		double score_run = model.evaluateAction(Action.run, 0);
+		double score_jump = model.evaluateAction(Action.jump, 0);
+		double score_run_and_jump = model.evaluateAction(Action.runAndJump, 0);
 
 
 		// Do the best one
-		if(score_run > score_jump && score_run > score_run_and_jump /*&&
-			 score_run > score_run_back*/)
-			model.doAction(model.run);
-		else if(score_jump > score_run_and_jump /*&& score_jump > score_run_back*/)
-			model.doAction(model.jump);
-		//else if(score_run_and_jump > score_run_back)
-		//	model.doAction(model.runAndJump);
+		if(score_run > score_jump && score_run > score_run_and_jump)
+			model.doAction(Action.run);
+		else if(score_jump > score_run_and_jump)
+			model.doAction(Action.jump);
+
 		else
-			model.doAction(model.runAndJump);
+			model.doAction(Action.runAndJump);
 
 
 		//------START OF NON AI STUFF---------------
