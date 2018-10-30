@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 import java.awt.Toolkit;
-import java.lang.Object;
 
 public class Game extends JFrame
 {
@@ -27,9 +26,8 @@ public class Game extends JFrame
 	
 	public void run(){
 		while(true){
-
-			model.update();
 			controller.update();
+			model.update();
 			view.repaint();
 			Toolkit.getDefaultToolkit().sync(); //updates the screen
 			
@@ -53,4 +51,5 @@ public class Game extends JFrame
 		Game g = new Game();
 		g.run();
 	}
-}
+
+}//end of game class

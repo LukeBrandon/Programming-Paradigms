@@ -1,5 +1,4 @@
 import javax.imageio.ImageIO;
-import java.io.IOException;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
@@ -10,15 +9,13 @@ import java.util.Random;
 
 class Coin extends Sprite{
     BufferedImage coinImage = null;
-    Model model;
     double horVel;
+    double vertVel;
 
     Coin(int x, int y, Model m){
         model = m;
-
         lazyLoad();
 
-        //temporary test coin loaction
         xPos = x;
         yPos = y;
         width = coinImage.getWidth();
@@ -27,16 +24,27 @@ class Coin extends Sprite{
         horVel = randomHorizontalVelocity();        
     }
 
+    //copy constructor
+    Coin(Coin old, Model newModel){
+        super(old, newModel);
+        this.coinImage = old.coinImage;
+        this.vertVel = old.vertVel;
+        this.horVel = old.horVel;
+    }
+
     //json constructor
     Coin(Json ob, Model m){	
         xPos = (int)ob.getDouble("x");
         yPos = (int)ob.getDouble("y");
         width = (int)ob.getDouble("w");
         height = (int)ob.getDouble("h");
-        vertVel = ob.getDouble("vertVel");
         horVel = randomHorizontalVelocity();
         model = m;
-	}
+    }
+    
+    Coin cloneMe(Model newModel){
+        return new Coin(this, newModel);
+    }
 
     void draw(Graphics g, Model model){
         g.drawImage(coinImage, xPos - model.cameraPos, yPos, null);
@@ -57,22 +65,11 @@ class Coin extends Sprite{
         while(iterator.hasNext()){
             Sprite s = iterator.next();
 
-            //coins collide with bricks
-            /*
-            if(s.isABrick()){
-                if(s!= this && collides(s)){
-                    pushOut(s);
-                }
-            }
-            */
-
             //coins get deleted when they fall of screen
             if(s.isACoin() && s.yPos > 700){
                 iterator.remove(); 
-                System.out.println("coin deleted, you didnt get it quick enough");
             }
         }
-
 
     }//end update method
 

@@ -2,13 +2,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.util.ArrayList;
 
-
-
-
-
 class Brick extends Sprite{
-	//make variables for position and dimensions of brick
-	Model model;
 	
 	Brick(int xtemp, int ytemp, int wtemp, int htemp, Model m){
 		xPos = xtemp;
@@ -17,6 +11,11 @@ class Brick extends Sprite{
 		height = htemp;
 		model = m;
 	}
+	
+	//copy constructor
+	Brick(Brick old, Model newModel){
+        super(old, newModel);
+    }
 
 	//json constructor
 	Brick(Json ob){	
@@ -24,7 +23,11 @@ class Brick extends Sprite{
 		yPos = (int)ob.getDouble("y");
 		width = (int)ob.getDouble("w");
 		height = (int)ob.getDouble("h");
-}
+	}
+
+	Brick cloneMe(Model newModel){
+		return new Brick(this, newModel);
+	}
 
 	//draw method
 	void draw(Graphics g, Model model){
@@ -38,5 +41,7 @@ class Brick extends Sprite{
 	boolean isABrick(){
 		return true;
 	}
+
+	
 
 }//end of Brick class

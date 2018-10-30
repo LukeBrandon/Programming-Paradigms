@@ -2,15 +2,13 @@ import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.IOException;
-import java.awt.Graphics;
+
 
 class Model{
 	ArrayList<Sprite> sprites;	
 	int cameraPos;
 	Mario mario;	//only instance of mario, instantiated in the unmarshall from JSON file
 	int x1, y1, x2, y2;
-	int marioIndexInSprites;
 	static BufferedImage backgroundImage = null;
 	int backgroundX;
 
@@ -23,12 +21,28 @@ class Model{
 				backgroundImage = ImageIO.read(new File("background.png"));
 			}catch(Exception e){}
 		}
-
 		this.unmarshal();
 		backgroundX = 0;
 		cameraPos = 10;
 	}//end of model constuctor
 
+	Model(Model old){
+		//array list deep copy
+		this.sprites = new ArrayList<Sprite>();
+		for(int i = 0; i < old.sprites.size(); i++){
+			Sprite clone = old.sprites.get(i).cloneMe(this);	//should that be this in this?
+			this.sprites.add(clone);
+			if(clone.isMario()) 
+				this.mario = (Mario)clone;
+		}
+		//System.out.println("cloned sprites");
+		this.cameraPos = old.cameraPos;
+		this.x1 = old.x1;
+		this.x2 = old.x2;
+		this.y1 = old.y1;
+		this.y2 = old.y2;
+		this.backgroundX = old.backgroundX;
+	}
 
 	//new modle update method
 	public void update(){
@@ -39,17 +53,6 @@ class Model{
 			Sprite tempSprite  = sprites.get(i);
 			tempSprite.update(sprites);
 		}
-	}
-	
-	void setStart(int x, int y){
-		x1 = x;
-		y1 = y;
-	}
-	
-	void setEnd(int x, int y){
-		x2 = x;
-		y2 = y;
-		createBrick(x1, y1, x2, y2);
 	}
 	
 	void createBrick(int x1, int y1, int x2, int y2){
@@ -80,6 +83,63 @@ class Model{
 	}	
 
 
+	double evaluateAction(Action action, int depth){
+		int d = 22;  //d is the maximum steps in the future to see
+		int k = 4;	//k is the number of steps to go before branching again
+		//brances d/k times and sees d moves ahead
+
+		// Base case and evaluate the state
+		if(depth >= d){
+			//favors xPos, coins, less jumps, and not dead
+			int deceased = 0;
+			if(mario.dead == true)
+				deceased = 1;
+			else
+				deceased = 0;
+			return ((5000*mario.coins)+(mario.xPos-250)-(10*mario.numJumps)-(10000000*deceased)); 
+		}
+
+		// Simulate the action
+		Model copy = new Model(this); // uses the copy constructor
+		copy.doAction(action);
+		copy.update(); // advance simulated time
+
+		//does same action unless its been k times of that action
+		if(depth % k != 0)
+			return copy.evaluateAction(action, depth+1);
+		else{
+			//finds best evaluation of action
+			double best = copy.evaluateAction(action.jump, depth+1);
+			best = Math.max(best,
+				copy.evaluateAction(action.runAndJump, depth+1));
+			best = Math.max(best,
+				copy.evaluateAction(action.run, depth+1));
+			return best;
+		}
+	}
+
+	void doAction(Action i){
+		if(i == Action.run){
+			mario.oldPosition();
+			mario.moveMarioRight(); 
+			mario.animateMario("right");
+
+		}else if(i == Action.jump && mario.lastTouchCounter < 7){
+			mario.oldPosition();
+			mario.jump();
+			mario.numJumps ++;
+
+		}else/* if (i == runAndJump && mario.lastTouchCounter < 7)*/{
+			if(mario.lastTouchCounter < 7){
+				mario.oldPosition();
+				mario.jump();
+				mario.moveMarioRight(); 
+				mario.animateMario("right");
+				mario.numJumps++;
+			}
+		}
+	}//end do action
+
 
 	//-----------------JSON------------------------
 
@@ -106,8 +166,8 @@ class Model{
 
 	//Unmarshaling
     void unmarshal(){
-
 		Json ob = Json.load("level1.json");
+		//Json ob = Json.load("levelDebug.json");
 
 		//create bricks arrayList and temp arrayList
 		sprites = new ArrayList<Sprite>();
@@ -121,7 +181,6 @@ class Model{
 				sprites.add(new Brick(tmpList.get(i))); 
 
 			}else if(type.equals("mario")){
-				marioIndexInSprites = i;
 				mario = new Mario(tmpList.get(i), this);
 				sprites.add(mario);
 

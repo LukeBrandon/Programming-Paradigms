@@ -5,7 +5,6 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
 import java.awt.Image;
-import java.util.ArrayList;
 
 
 
@@ -13,19 +12,39 @@ class Mario extends Sprite{
     static Image[] rightMarioImages = null;
 	static Image[] leftMarioImages = null;
     Image marioImage = null;
+
+    int lastTouchCounter;
     int marioCounter;
-    Model model;
     int coins;
+    int numJumps;
+    double vertVel;
+    boolean dead;
 
     Mario(Model m){
-        yPos = 300; //should drop onto the ground some
+        model = m;
+        yPos = 300;
         xPos = 250;
         width = 60;
         height = 95;
-        model = m;
-        coins = 0;  //player starts with 0 coins
+        lastTouchCounter = 0;
+        vertVel = 0;
+        coins = 0;
+        numJumps = 0;
+        dead = false;
 
         lazyLoad();
+    }
+
+    //copy constructor
+    Mario(Mario old, Model newModel){
+        super(old, newModel);
+        this.lastTouchCounter = old.lastTouchCounter;
+        this.marioCounter = old.marioCounter;
+        this.coins = old.coins;
+        this.marioImage = old.marioImage;
+        this.numJumps = old.numJumps;
+        this.vertVel = old.vertVel;
+        this.dead = old.dead;
     }
 
     //json contrusctor
@@ -34,24 +53,21 @@ class Mario extends Sprite{
         yPos = (int)ob.getDouble("y");
         width = (int)ob.getDouble("w");
         height = (int)ob.getDouble("h");
-        vertVel = ob.getDouble("vertVel");
         model = m;
         coins = 0;
         lazyLoad();
-	}
-
+    }
+    
+    Mario cloneMe(Model newModel){
+        return new Mario(this, newModel);
+    }
 
     void draw(Graphics g, Model model){
         g.drawImage(marioImage, this.xPos - model.cameraPos, this.yPos, null);
     }
 
-
     void update(ArrayList<Sprite> sprites){
-        String direction;
-
-        //accelelerates downwards
-        vertVel += 1.3;
-        yPos += vertVel;
+        updateGravity();
         lastTouchCounter++; //used for dynamic jumped heights
 
         //Using iterator to determine operations upon collision
@@ -59,42 +75,45 @@ class Mario extends Sprite{
         while(iterator.hasNext()){
             Sprite s = iterator.next();
 
-            //only push out when colliding with a brick
-            if(s.isABrick()){
-                if(s!= this && collides(s)){
-                    pushOut(s);
-                }
-            }
+            //if colliding
+            if(this.collides(s)){
+                String direction = pushOut(s); //side of collision
+                if(direction == "top"){
+                    lastTouchCounter = 0;
+                    vertVel = 0.0;
+                }else if(direction == "right"){     
+                    //no need to do anything special at this time
+                    //besides push out which happens above
+                }else if(direction == "left"){     
+                    //no need to do anything special at this time
+                    //besides push out which happens above
+                }else if(direction == "bottom")
+                    vertVel = 0.5;
+                else{   }
 
-            //if its a coin, then delete the coin and add 1 to coins stat
-            if(s.isACoin()){
-                if(s!= this && collides(s)){
-                    iterator.remove();
-                    coins++;
-                    System.out.println("Coins: " + coins);
-                }
-            }
-
-            //if its a coinBlock, then eject coins out of it only if hit from bottom
-            if(s.isACoinBlock()){
-                if(s!= this && collides(s)){
-                    if(collidesBottom(s)){
-                        CoinBlock cb = (CoinBlock)s;
+                //if its a coinBlock, then eject coins out of it only if hit from bottom
+                if(s.isACoinBlock() && direction == "bottom"){
+                    CoinBlock cb = (CoinBlock)s;
+                    if(cb.coinCount > 0){
                         cb.ejectCoin();
+                        coins++;
                     }
-                    pushOut(s);
                 }
-            }
-
-        }//end while loop
-
+            }//end of if collides 
+        }//end iterator while loop
 
         //if mario has falled to his death 
-        if(this.yPos > 700)
+        if(this.yPos > 600){
+            dead = true;
             System.exit(0);
+        }
 
     }//end of update method
 
+    void updateGravity(){
+        vertVel += 3.0;
+        yPos += vertVel;
+    }
 
     boolean isMario(){  //mario identity
         return true;
@@ -122,6 +141,10 @@ class Mario extends Sprite{
 		}
     }
 
+    void jump(){
+        vertVel -= 5.5;
+    }
+
     void lazyLoad(){
         //lazy loading mario Images
 		if(rightMarioImages == null){
@@ -147,6 +170,6 @@ class Mario extends Sprite{
 
         marioImage = rightMarioImages[0];   //makes mario appear on startup
     }
+    
 
-
-}//end of class
+}//end of Marioclass

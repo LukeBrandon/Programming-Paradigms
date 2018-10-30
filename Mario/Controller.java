@@ -23,6 +23,8 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 	boolean keySpace;
 	boolean keyC;
 
+	int x1, y1;
+
 	//used to make so mario cant fail a jump in between updates
 	ArrayList<String> hasBeenPressed = new ArrayList<String>();
 
@@ -77,30 +79,47 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 	public void mousePressed(MouseEvent e){
 		//if left mouse button presed, then place regular brick
 		if(e.getButton() == MouseEvent.BUTTON1){
-			model.setStart(e.getX(), e.getY());
-		//if righ tmouse button pressed, place coin block
-		}else if(e.getButton() == MouseEvent.BUTTON3){
-			placeCoinBlock(e.getX(), e.getY());
+			x1 = e.getX();
+			y1 = e.getY();
+		
+		//right mouse places coin block
+		}else if(e.getButton() == MouseEvent.BUTTON3){	
+			model.sprites.add(new CoinBlock( e.getX()+model.cameraPos, e.getY(), model) );
+		
 		}else
 			System.out.println("other mouse button pressed");
 	}
+
 	public void mouseReleased(MouseEvent e){  
-		//if its the left mouse button then regular brick
-		if(e.getButton() == MouseEvent.BUTTON1)
-			model.setEnd(e.getX(), e.getY());
+		if(e.getButton() == MouseEvent.BUTTON1){
+			model.createBrick(x1,y1,e.getX(), e.getY());  //add brick to sprites
+		}
 	}
 	public void mouseEntered(MouseEvent e) {    }
 	public void mouseExited(MouseEvent e) {    }
 	public void mouseClicked(MouseEvent e) {    }
 
-	void placeCoinBlock(int x, int y){
-		//add coin block to sprites
-		model.sprites.add(new CoinBlock(x + model.cameraPos,y,model));
-    }
-
 	//-----------------UPDATE---------------------------
 	void update(){
 		model.mario.oldPosition();
+		//Evaluate each possible action
+		double score_run = model.evaluateAction(Action.run, 0);
+		double score_jump = model.evaluateAction(Action.jump, 0);
+		double score_run_and_jump = model.evaluateAction(Action.runAndJump, 0);
+
+
+		// Do the best one
+		if(score_run > score_jump && score_run > score_run_and_jump)
+			model.doAction(Action.run);
+		else if(score_jump > score_run_and_jump)
+			model.doAction(Action.jump);
+
+		else
+			model.doAction(Action.runAndJump);
+
+
+		//------START OF NON AI STUFF---------------
+		//model.mario.oldPosition();
 
 		if(keyRight){
 			model.mario.moveMarioRight(); model.mario.animateMario("right");
@@ -112,7 +131,7 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		if(keyL) model.unmarshal();		//loads the map from map.json
 		if(keyE) model.erase();			//erases the map by loading an empty map
 		if(keyZ) model.undo();			//undoes a brick placement
-		if(keySpace) {
+		if(keySpace && model.mario.lastTouchCounter < 6) {
 			hasBeenPressed.add(hasBeenPressed.size(),"space");
 		}
 
@@ -120,16 +139,16 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 		//checking and executing jumping buffer
 		if(hasBeenPressed.size()>=1){
 			for(int i = 0; i < hasBeenPressed.size(); i++){
-				if(hasBeenPressed.get(i) == "space" && model.mario.lastTouchCounter < 6)
-					model.mario.vertVel -= 3.5;
+				if(hasBeenPressed.get(i) == "space" && model.mario.lastTouchCounter < 6){
+					model.mario.jump();
+				}
 			}
 			while(hasBeenPressed.size()>0){
-				hasBeenPressed.remove(0);
+				hasBeenPressed.remove(0);  //removes all after they were evaluated
 			}
 		}	
 		
 	}//end of update method
-	
 	
 
 }
