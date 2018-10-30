@@ -115,8 +115,6 @@ abstract class Sprite{
 
 
 
-
-
     //------------JSON--------------
     //Marshalling Method for saving the sprites into the JSON format
 	Json marshal()
