@@ -1,13 +1,8 @@
 import javax.imageio.ImageIO;
-import java.io.IOException;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.util.Iterator;
 import java.util.ArrayList;
-
-
 
 class CoinBlock extends Sprite{
     BufferedImage coinBlockImage = null;

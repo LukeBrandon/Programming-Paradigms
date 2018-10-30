@@ -23,6 +23,8 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 	boolean keySpace;
 	boolean keyC;
 
+	int x1, y1;
+
 	//used to make so mario cant fail a jump in between updates
 	ArrayList<String> hasBeenPressed = new ArrayList<String>();
 
@@ -77,25 +79,25 @@ class Controller implements ActionListener, MouseListener, KeyListener{
 	public void mousePressed(MouseEvent e){
 		//if left mouse button presed, then place regular brick
 		if(e.getButton() == MouseEvent.BUTTON1){
-			model.setStart(e.getX(), e.getY());
-		}else if(e.getButton() == MouseEvent.BUTTON3){	//right mouse places coin block
-			placeCoinBlock(e.getX(), e.getY());
+			x1 = e.getX();
+			y1 = e.getY();
+		
+		//right mouse places coin block
+		}else if(e.getButton() == MouseEvent.BUTTON3){	
+			model.sprites.add(new CoinBlock( e.getX()+model.cameraPos, e.getY(), model) );
+		
 		}else
 			System.out.println("other mouse button pressed");
 	}
+
 	public void mouseReleased(MouseEvent e){  
-		//if its the left mouse button then regular brick
-		if(e.getButton() == MouseEvent.BUTTON1)
-			model.setEnd(e.getX(), e.getY());
+		if(e.getButton() == MouseEvent.BUTTON1){
+			model.createBrick(x1,y1,e.getX(), e.getY());  //add brick to sprites
+		}
 	}
 	public void mouseEntered(MouseEvent e) {    }
 	public void mouseExited(MouseEvent e) {    }
 	public void mouseClicked(MouseEvent e) {    }
-
-	void placeCoinBlock(int x, int y){
-		//add coin block to sprites
-		model.sprites.add(new CoinBlock(x + model.cameraPos,y,model));
-    }
 
 	//-----------------UPDATE---------------------------
 	void update(){

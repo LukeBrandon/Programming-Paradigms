@@ -44,7 +44,6 @@ class Model{
 		this.backgroundX = old.backgroundX;
 	}
 
-
 	//new modle update method
 	public void update(){
 		cameraPos = mario.xPos -250;
@@ -54,18 +53,6 @@ class Model{
 			Sprite tempSprite  = sprites.get(i);
 			tempSprite.update(sprites);
 		}
-	}
-	
-	//making bricks
-	void setStart(int x, int y){
-		x1 = x;
-		y1 = y;
-	}
-	
-	void setEnd(int x, int y){
-		x2 = x;
-		y2 = y;
-		createBrick(x1, y1, x2, y2);
 	}
 	
 	void createBrick(int x1, int y1, int x2, int y2){
@@ -151,12 +138,7 @@ class Model{
 				mario.numJumps++;
 			}
 		}
-		// else{ // run back
-		// 	mario.oldPosition();
-		// 	mario.moveMarioRight();
-		// 	mario.animateMario("left");
-		// }
-	}
+	}//end do action
 
 
 	//-----------------JSON------------------------
