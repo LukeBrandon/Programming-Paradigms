@@ -1,3 +1,5 @@
+
+//-------------------SPRITE-----------------------
 function Sprite(x, y, image_url, update_method, onclick_method)
 {
 	this.x = x;
@@ -48,7 +50,7 @@ Sprite.prototype.sit_still = function()
 
 
 
-
+//---------------------MODEL---------------------
 function Model()
 {
 	this.sprites = [];
@@ -82,7 +84,7 @@ Model.prototype.move = function(dx, dy)
 
 
 
-
+//---------------VIEW-----------------
 function View(model)
 {
 	this.model = model;
@@ -103,13 +105,7 @@ View.prototype.update = function()
 }
 
 
-
-
-
-
-
-
-
+//----------------CONTROLLER---------------------
 function Controller(model, view)
 {
 	this.model = model;
@@ -170,7 +166,7 @@ Controller.prototype.update = function()
 
 
 
-
+//------------GAME-----------------
 function Game()
 {
 	this.model = new Model();
@@ -190,6 +186,3 @@ Game.prototype.onTimer = function()
 let game = new Game();
 let timer = setInterval(function() { game.onTimer(); }, 40);
 
-</script>
-
-</body>
