@@ -1,7 +1,6 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-
 //types of sprite classes inheret this class
 
 abstract class Sprite{
@@ -87,7 +86,6 @@ abstract class Sprite{
         return false;
     }
 
-
     //return type that tells which side it collided on
     String pushOut(Sprite that){
 
@@ -111,10 +109,8 @@ abstract class Sprite{
             this.xPos = that.getX() +that.getW();
             return "right";
 
-        }else{
-            //System.out.println("Didn't meet any of the directional conditions");
-        }
-        return "not";
+        }else
+            return "not";
     }//end of push out method
 
 

@@ -8,7 +8,6 @@ class Model{
 	ArrayList<Sprite> sprites;	
 	int cameraPos;
 	Mario mario;	//only instance of mario, instantiated in the unmarshall from JSON file
-	int x1, y1, x2, y2;
 	static BufferedImage backgroundImage = null;
 	int backgroundX;
 
@@ -35,12 +34,8 @@ class Model{
 			if(clone.isMario()) 
 				this.mario = (Mario)clone;
 		}
-		//System.out.println("cloned sprites");
+
 		this.cameraPos = old.cameraPos;
-		this.x1 = old.x1;
-		this.x2 = old.x2;
-		this.y1 = old.y1;
-		this.y2 = old.y2;
 		this.backgroundX = old.backgroundX;
 	}
 
@@ -129,7 +124,7 @@ class Model{
 			mario.jump();
 			mario.numJumps ++;
 
-		}else/* if (i == runAndJump && mario.lastTouchCounter < 7)*/{
+		}else{
 			if(mario.lastTouchCounter < 7){
 				mario.oldPosition();
 				mario.jump();
@@ -140,9 +135,7 @@ class Model{
 		}
 	}//end do action
 
-
 	//-----------------JSON------------------------
-
 	//Marshals this object into a JSON
 	Json marshal()
 	{
@@ -161,13 +154,11 @@ class Model{
 
 		//returns JSON object
 		return ob; 
-
 	}
 
 	//Unmarshaling
     void unmarshal(){
 		Json ob = Json.load("level1.json");
-		//Json ob = Json.load("levelDebug.json");
 
 		//create bricks arrayList and temp arrayList
 		sprites = new ArrayList<Sprite>();
@@ -194,7 +185,6 @@ class Model{
 				System.out.println("didnt meet any statements: looking for \"" + type + "\"");
 			}
 		}
-
 	}
 	
 	//same as the unmarshal method but loads up the empty.json thus "erasing" the map

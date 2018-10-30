@@ -36,7 +36,7 @@ class Brick extends Sprite{
 	}
 
 	//update method
-	void update(ArrayList<Sprite> sprites){}
+	void update(ArrayList<Sprite> sprites){		}
 
 	boolean isABrick(){
 		return true;
