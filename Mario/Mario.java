@@ -99,7 +99,7 @@ class Mario extends Sprite{
         //if mario has falled to his death 
         if(this.yPos > 600){
             dead = true;
-            System.exit(0);
+            //System.exit(0);
         }
 
     }//end of update method
