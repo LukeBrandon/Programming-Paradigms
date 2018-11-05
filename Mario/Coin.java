@@ -70,7 +70,6 @@ class Coin extends Sprite{
                 iterator.remove(); 
             }
         }
-
     }//end update method
 
     boolean isACoin(){

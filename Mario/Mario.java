@@ -81,12 +81,6 @@ class Mario extends Sprite{
                 if(direction == "top"){
                     lastTouchCounter = 0;
                     vertVel = 0.0;
-                }else if(direction == "right"){     
-                    //no need to do anything special at this time
-                    //besides push out which happens above
-                }else if(direction == "left"){     
-                    //no need to do anything special at this time
-                    //besides push out which happens above
                 }else if(direction == "bottom")
                     vertVel = 0.5;
                 else{   }
