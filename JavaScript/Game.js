@@ -1,15 +1,15 @@
-function Game()
-{
-	this.model = new Model();
-	this.view = new View(this.model);
-	this.controller = new Controller(this.model, this.view);
-}
+class Game{
+	constructor(){
+		this.model = new Model();
+		this.view = new View(this.model);
+		this.controller = new Controller(this.model, this.view);
+	}
 
-Game.prototype.onTimer = function()
-{
-	this.controller.update();
-	this.model.update();
-	this.view.update();
+	onTimer(){
+		this.controller.update();
+		this.model.update();
+		this.view.update();
+	}
 }
 
 

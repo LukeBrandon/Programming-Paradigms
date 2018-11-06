@@ -4,8 +4,9 @@ Coins coming out of coin blocks
 
 Coin horizontal velocity broken???
 
-Mouse drawing bricks
-
 JSON marshal and unmarshalling
     need unmarshal and marshal in mode
     then marshal in every sprite
+
+Marshalling notes from lecture
+    - 
