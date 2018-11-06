@@ -9,4 +9,4 @@ JSON marshal and unmarshalling
     then marshal in every sprite
 
 Marshalling notes from lecture
-    - 
+    - let myjsonfile = {[{"x": 15, "y": 100} , {"x":150, "y":200}]}
