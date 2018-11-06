@@ -1,0 +1,4 @@
+To place a coin block , right click
+To move, use the arrow keys
+To jump, use the space bar
+To place a brick, click and drag
