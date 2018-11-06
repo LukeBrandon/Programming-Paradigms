@@ -8,6 +8,7 @@ function Mario(x, y, model, image_url, update, draw){
     this.model = model;
     this.image = new Image();
     this.image.src = image_url;
+    //image arrays
     this.marioImageCounter = 0;
     this.w = 60;
     this.h = 95;
@@ -15,6 +16,7 @@ function Mario(x, y, model, image_url, update, draw){
     //this.h = this.image.height;       //broken
     this.update = update;
     this.draw = draw;
+    lazyLoad();
 }
 
 Mario.prototype.update = function(x,y){
@@ -59,11 +61,32 @@ Mario.prototype.oldPosition = function(){
 
 Mario.prototype.animate = function(dir){
     this.marioImageCounter ++;
-    if(dir == "left"){  //animate left
-        
-        
-    }else{  //animate right
-        
+    if(dir == "right"){  //animate left
+        if(this.marioImageCounter/5 == 0)
+            this.image.src = "mario1.png"
+        if(this.marioImageCounter/5 == 1)
+            this.image.src = "mario2.png";
+        if(this.marioImageCounter/5 == 2)
+            this.image.src = "mario3.png";
+        if(this.marioImageCounter/5 == 3)
+            this.image.src = "mario4.png";
+        if(this.marioImageCounter/5 == 4)
+            this.image.src = "mario5.png";
+        //restarts counter at 25
+        this.marioImageCounter %= 25;
+    }else if(dir == "left"){  //animate right
+        if(this.marioImageCounter/5 == 0)
+            this.image.src = "leftMario1.png"
+        if(this.marioImageCounter/5 == 1)
+            this.image.src = "leftMario2.png";
+        if(this.marioImageCounter/5 == 2)
+            this.image.src = "leftMario3.png";
+        if(this.marioImageCounter/5 == 3)
+            this.image.src = "leftMario4.png";
+        if(this.marioImageCounter/5 == 4)
+            this.image.src = "leftMario5.png";
+        //restarts counter at 25
+        this.marioImageCounter %= 25;
     }
 }
 
@@ -106,4 +129,8 @@ function pushOut(that){
         }else
             return "not";
 
+}
+
+function lazyLoad(){
+    
 }

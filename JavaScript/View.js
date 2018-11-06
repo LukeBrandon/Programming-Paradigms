@@ -7,7 +7,10 @@ function View(model)
 View.prototype.update = function()
 {
 	let ctx = this.canvas.getContext("2d");
-    ctx.clearRect(0, 0, 1000, 500);
+    ctx.clearRect(0, 0, 1300, 700);
+
+    //drawBackground
+    ctx.drawImage(this.model.backgroundImage, this.model.backgroundX -150, -33);
     
     //draw ground
     ctx.beginPath();
