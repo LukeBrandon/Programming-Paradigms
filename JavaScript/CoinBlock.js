@@ -19,7 +19,7 @@ function CoinBlock(x, y, model, update, draw){
 CoinBlock.prototype.update = function(){
     if(this.coinCount > 0 && this.blockHit == true){
         let coin = new Coin(this.x + 7, this.y - 35, this.model);
-        this.model.sprites.push(coin);
+        //this.model.sprites.push(coin);
         this.coinCount--;
         this.blockHit = false;
     }
@@ -29,5 +29,5 @@ CoinBlock.prototype.draw = function(ctx){
     if(this.coinCount > 0)
         ctx.drawImage(this.image, this.x - this.model.screenPos, this.y);
     else    
-        ctx.drawImage(this.depeltedImage, this.x - this.model.screenPos, this.y);
+        ctx.drawImage(this.depletedImage, this.x - this.model.screenPos, this.y);
 }

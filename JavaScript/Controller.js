@@ -41,18 +41,17 @@ Controller.prototype.keyUp = function(event){
 
 Controller.prototype.update = function(){
     this.model.mario.oldPosition();
-    let mar = this.model.mario;
 
     //does movement for mario
 	if(this.key_right) {
-        mar.x += 10; 
-        mar.animate("right");
+        this.model.mario.x += 10; 
+        this.model.mario.animate("right");
     }
 	if(this.key_left){
-        mar.x -=10; 
-        mar.animate("left");
+        this.model.mario.x -=10; 
+        this.model.mario.animate("left");
     }
-    if(this.key_space && mar.lastTouchCounter < 10) mar.vertVel = -17.0;
+    if(this.key_space && this.model.mario.lastTouchCounter < 10) this.model.mario.vertVel = -17.0;
 
 
 }

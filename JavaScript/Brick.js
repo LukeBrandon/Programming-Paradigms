@@ -11,8 +11,7 @@ function Brick(x, y, w, h, model, update, draw){
 }
 
 Brick.prototype.update = function(){
-
-
+    //nothing needs to be updated
 }
 
 Brick.prototype.draw = function(ctx){

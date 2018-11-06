@@ -36,8 +36,7 @@ Coin.prototype.update = function(){
         this.lastTouchCounter = 0;
     }
 
-
-}
+} //end coin update
 
 Coin.prototype.draw = function(ctx){
     ctx.drawImage(this.image, this.x - this.model.screenPos, this.y);

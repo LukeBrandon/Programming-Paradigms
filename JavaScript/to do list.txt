@@ -1,9 +1,11 @@
 Lazy loading images
 
-Coin Blocks
-
-Coins
+Coins coming out of coin blocks
 
 Coin horizontal velocity broken???
 
 Mouse drawing bricks and coin blocks
+
+JSON marshal and unmarshalling
+    need unmarshal and marshal in mode
+    then marshal in every sprite

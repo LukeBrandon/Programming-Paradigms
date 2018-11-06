@@ -28,20 +28,20 @@ Mario.prototype.update = function(){
 
     //interacting with other sprites
     for(let i = 0; i < this.model.sprites.length; i++){
-        let thisSprite = this.model.sprites[i]; //current sprite in for loop
+        let thatSprite = this.model.sprites[i]; //current sprite in for loop
 
         //checks if colliding
-        if((thisSprite != this) && collides(thisSprite)) {
-            let dir = pushOut(thisSprite);
+        if((thatSprite != this) && this.collides(thatSprite)) {
+            let dir = this.pushOut(thatSprite);
 
-            if((dir == "bottom") && (thisSprite.isCoinBlock == true)){
-                console.log("hit bottom of coin block");
+            if((dir == "bottom") && (thatSprite.isCoinBlock == true)){
+                console.log("should eject coin");
+                thatSprite.blockHit = true;
             }
 
             // broken bc mario always colliding??????
             // if(thisSprite.isCoin == true)
             //     this.model.sprites.splice(i,1);
-
         }
     }
 
@@ -51,7 +51,7 @@ Mario.prototype.update = function(){
         this.y = 400-this.image.height;
         this.lastTouchCounter = 0;
     }
-}
+}//end mario update
 
 Mario.prototype.draw = function(ctx){
     ctx.drawImage(this.image, this.x - this.model.screenPos, this.y);
@@ -93,8 +93,7 @@ Mario.prototype.animate = function(dir){
     }
 }
 
-function collides(that){
-    //console.log("thatx " + that.x + " / thaty " + that.y);
+Mario.prototype.collides = function(that){
     if(this.y + this.h <= that.y){     //above
         return false;
     }else if(this.x + this.w <= that.x){     //right side of mario 
@@ -107,15 +106,18 @@ function collides(that){
         return true; 
 }
 
-function pushOut(that){
+Mario.prototype.pushOut = function(that){
         //entering from top
         if(this.y + this.h >= that.y && !(this.prevY + this.h > that.y)){  
-            this.y = that.y - this.height;
+            this.y = that.y - this.h;
+            this.lastTouchCounter = 0;
+            this.vertVel = 0.0;
             return "top";
 
         //entering from bottom
         }else if(this.y <= that.y + that.h && !(this.prevY < that.y + that.h)){  
-            this.y = that.y + that.h + 3;
+            this.y = that.y + that.h;
+            this.vertVel = 0.2;
             return "bottom";
 
         //entering from left
@@ -125,7 +127,7 @@ function pushOut(that){
 
         //entering from right
         }else if(this.x <= (that.x + that.w) && !(this.prevX < (that.x + that.w) )){ 
-            this.x = that.x +that.w;
+            this.x = that.x + that.w;
             return "right";
 
         }else

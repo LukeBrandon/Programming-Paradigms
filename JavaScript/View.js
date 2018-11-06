@@ -10,7 +10,7 @@ View.prototype.update = function()
     ctx.clearRect(0, 0, 1300, 700);
 
     //drawBackground
-    //ctx.drawImage(this.model.backgroundImage, this.model.backgroundX -150, -33);
+    ctx.drawImage(this.model.backgroundImage, this.model.backgroundX -150, -33);
     
     //draw ground
     ctx.beginPath();
