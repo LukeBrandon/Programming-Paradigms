@@ -8,8 +8,9 @@ function Controller(model, view){
     //view.canvas.addEventListener("click", function(event) { self.onClick(event); });
     document.addEventListener('keydown', function(event) { self.keyDown(event); }, false);
     document.addEventListener('keyup', function(event) { self.keyUp(event); }, false);
-    document.addEventListener('mousedown', function(event) {self.mouseDown(event); }, false);
-    document.addEventListener('mouseup', function(event) {self.mouseUp(event); }, false);
+    // document.addEventListener('mousedown', function(event) {self.mouseDown(event); }, false);
+    // document.addEventListener('mouseup', function(event) {self.mouseUp(event); }, false);
+    document.addEventListener('contextmenu', function(event) {self.rightClick(event); }, false);
 
 }
 
@@ -38,6 +39,15 @@ Controller.prototype.keyUp = function(event){
 //     console.log("mousereleased");
 //     this.mouseUp(event.pageX - this.view.canvas.offsetLeft, event.pageY - this.view.canvas.offsetTop);
 // }
+
+Controller.prototype.rightClick = function(event){
+    console.log("place coin block");
+    console.log(this.view.canvas.offsetLeft);
+    let tempx = event.pageX - this.view.canvas.offsetLeft + this.model.screenPos;
+    let tempy = event.pageY - this.view.canvas.offsetTop;
+    let coinblock = new CoinBlock(tempx, tempy, this.model, CoinBlock.prototype.update, CoinBlock.prototype.draw);
+    this.model.sprites.push(coinblock);
+}
 
 Controller.prototype.update = function(){
     this.model.mario.oldPosition();
