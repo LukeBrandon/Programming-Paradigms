@@ -6,6 +6,8 @@ function Brick(x, y, w, h, model, update, draw){
     this.model = model;
     this.update = update;
     this.draw = draw;
+    this.isCoinBlock = false;
+    this.isCoin = false;
 }
 
 Brick.prototype.update = function(){

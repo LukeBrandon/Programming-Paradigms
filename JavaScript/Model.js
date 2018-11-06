@@ -11,6 +11,10 @@ function Model()
 	this.sprites.push(this.mario);
 	this.brick1 = new Brick(350, 300, 150, 100, this, Brick.prototype.update, Brick.prototype.draw);
 	this.sprites.push(this.brick1);
+	this.coin = new Coin(200, 100, this, "coin.png", Coin.prototype.update, Coin.prototype.draw);
+	this.sprites.push(this.coin);
+	this.coinblock1 = new CoinBlock(200, 225, this, CoinBlock.prototype.update, CoinBlock.prototype.draw);
+	this.sprites.push(this.coinblock1);
 }
 
 Model.prototype.update = function()

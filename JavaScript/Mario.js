@@ -16,10 +16,11 @@ function Mario(x, y, model, image_url, update, draw){
     //this.h = this.image.height;       //broken
     this.update = update;
     this.draw = draw;
+    this.isCoinBlock = false;
     lazyLoad();
 }
 
-Mario.prototype.update = function(x,y){
+Mario.prototype.update = function(){
     //gravity 
     this.vertVel += 2.0;
     this.y += this.vertVel;
@@ -31,13 +32,15 @@ Mario.prototype.update = function(x,y){
 
         //checks if colliding
         if((thisSprite != this) && collides(thisSprite)) {
-            //console.log("colliding with ");
-            //console.log(thisSprite);
             let dir = pushOut(thisSprite);
 
-            if(dir == "bottom"){
-                console.log("hit bottom of block");
+            if((dir == "bottom") && (thisSprite.isCoinBlock == true)){
+                console.log("hit bottom of coin block");
             }
+
+            // broken bc mario always colliding??????
+            // if(thisSprite.isCoin == true)
+            //     this.model.sprites.splice(i,1);
 
         }
     }
@@ -105,7 +108,6 @@ function collides(that){
 }
 
 function pushOut(that){
-    
         //entering from top
         if(this.y + this.h >= that.y && !(this.prevY + this.h > that.y)){  
             this.y = that.y - this.height;

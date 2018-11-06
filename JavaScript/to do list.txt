@@ -1,7 +1,9 @@
-
-
 Lazy loading images
 
 Coin Blocks
 
 Coins
+
+Coin horizontal velocity broken???
+
+Mouse drawing bricks and coin blocks

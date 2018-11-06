@@ -29,15 +29,15 @@ Controller.prototype.keyUp = function(event){
     else if(event.keyCode == 32) this.key_space = false;
 }
 
-Controller.prototype.mouseDown = function(event){
-    console.log("presed down");
-    this.mouseDown(event.pageX - this.view.canvas.offsetLeft, event.pageY - this.view.canvas.offsetTop);
-}
+// Controller.prototype.mouseDown = function(event){
+//     //console.log("presed down");
+//     this.mouseDown(event.pageX - this.view.canvas.offsetLeft, event.pageY - this.view.canvas.offsetTop);
+// }
 
-Controller.prototype.mouseUp = function(event){
-    console.log("mousereleased");
-    this.mouseUp(event.pageX - this.view.canvas.offsetLeft, event.pageY - this.view.canvas.offsetTop);
-}
+// Controller.prototype.mouseUp = function(event){
+//     console.log("mousereleased");
+//     this.mouseUp(event.pageX - this.view.canvas.offsetLeft, event.pageY - this.view.canvas.offsetTop);
+// }
 
 Controller.prototype.update = function(){
     this.model.mario.oldPosition();
