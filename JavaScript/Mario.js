@@ -108,7 +108,7 @@ class Mario{
             return true; 
     }
 
-    pushout(that){
+    pushOut(that){
             //entering from top
             if(this.y + this.h >= that.y && !(this.prevY + this.h > that.y)){  
                 this.y = that.y - this.h;
@@ -119,6 +119,7 @@ class Mario{
             //entering from bottom
             }else if(this.y <= that.y + that.h && !(this.prevY < that.y + that.h)){  
                 this.y = that.y + that.h;
+                this.lastTouchCounter = 100; //so mario cant keep jumping 
                 this.vertVel = 0.2;
                 return "bottom";
 
