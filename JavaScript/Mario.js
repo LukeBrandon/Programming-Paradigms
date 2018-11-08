@@ -30,6 +30,7 @@ class Mario extends Sprite{
                 if(dir == "bottom" && thatSprite.isCoinBlock){
                     const tempCoin = new Coin(thatSprite.x, thatSprite.y, this.model, "coin.png");
                     this.model.sprites.push(tempCoin);
+                    thatSprite.coinCoint--;
                 }
 
                 // broken bc mario always colliding??????

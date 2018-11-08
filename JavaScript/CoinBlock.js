@@ -7,19 +7,14 @@ class CoinBlock extends Sprite{
 
         this.depletedImage = new Image();
         this.depletedImage.src = "depletedCoinBlock.png";
-        this.blockHit = false;
+
         this.coinCount = 5;
         this.isCoinBlock = true;
     }
 
 
     update(){
-        if(this.coinCount > 0 && this.blockHit == true){
-            let coin = new Coin(this.x + 7, this.y - 35, this.model);
-            //this.model.sprites.push(coin);
-            this.coinCount--;
-            this.blockHit = false;
-        }
+
     }
 
     draw(ctx){
