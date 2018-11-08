@@ -1,14 +1,12 @@
-class Brick{
-    constructor(x, y, w, h, model, update, draw){
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
+class Brick extends Sprite{
+    constructor(x, y, w, h, model){
+        super(x, y, w, h, model);
         this.model = model;
-        this.update = update;
-        this.draw = draw;
-        this.isCoinBlock = false;
-        this.isCoin = false;
+        this.isBrick = true;
+    }
+
+    isBrick(){
+        return true;
     }
 
     update(){

@@ -1,10 +1,16 @@
 class Sprite{
-	constructor(x, y, image_url, update){
+	constructor(x, y, w, h, model){
 		this.x = x;
 		this.y = y;
-		this.image = new Image();
-		this.image.src = image_url;
-		this.update = update;
+		this.w = w;
+		this.h = h;
+		this.model = model;
+		this.isCoinBlock = false;
+		this.isBrick = false;
+		this.isMario = false;
+		this.isCoin = false;
 	}
+
+
 
 }

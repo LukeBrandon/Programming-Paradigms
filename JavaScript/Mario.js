@@ -1,26 +1,17 @@
-class Mario{
+class Mario extends Sprite{
 
-    constructor(x, y, model, image_url, update, draw){
-        this.x = x;
-        this.y = y;
+    constructor(x, y, model){
+        super(x, y, 60, 95, model);
         this.prevX = 0;
         this.prevY = 0;
         this.vertVel = 0.0;
         this.lastTouchCounter = 0;
         this.model = model;
-        this.image = new Image();
-        this.image.src = image_url;
-        //image arrays
         this.marioImageCounter = 0;
-        this.w = 60;
-        this.h = 95;
-        //this.w = this.image.width;        //broken
-        //this.h = this.image.height;       //broken
-        this.update = update;
-        this.draw = draw;
-        this.isCoinBlock = false;
+        this.isMario = true;
         this.lazyLoad();
     }
+
 
     update(){
         //gravity 
@@ -33,12 +24,12 @@ class Mario{
             let thatSprite = this.model.sprites[i]; //current sprite in for loop
 
             //checks if colliding
-            if((thatSprite != this) && this.collides(thatSprite)) {
+            if(thatSprite != this && this.collides(thatSprite) && !thatSprite.isCoin) {
                 let dir = this.pushOut(thatSprite);
 
-                if((dir == "bottom") && (thatSprite.isCoinBlock == true)){
-                    console.log("should eject coin");
-                    thatSprite.blockHit = true;
+                if(dir == "bottom" && thatSprite.isCoinBlock){
+                    const tempCoin = new Coin(thatSprite.x, thatSprite.y, this.model, "coin.png");
+                    this.model.sprites.push(tempCoin);
                 }
 
                 // broken bc mario always colliding??????
@@ -139,7 +130,9 @@ class Mario{
     }
 
     lazyLoad(){
-        //console.log("lazy load");
+        console.log("lazy load");
+        this.image = new Image();
+        this.image.src = "mario1.png";
     }
 
 }

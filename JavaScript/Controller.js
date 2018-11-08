@@ -5,11 +5,8 @@ class Controller{
         this.key_right = false;
         this.key_left = false;
         let self = this;
-        //view.canvas.addEventListener("click", function(event) { self.onClick(event); });
         document.addEventListener('keydown', function(event) { self.keyDown(event); }, false);
         document.addEventListener('keyup', function(event) { self.keyUp(event); }, false);
-        // document.addEventListener('mousedown', function(event) {self.mouseDown(event); }, false);
-        // document.addEventListener('mouseup', function(event) {self.mouseUp(event); }, false);
         document.addEventListener('contextmenu', function(event) {self.rightClick(event); }, false);
 
     }

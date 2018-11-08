@@ -1,21 +1,17 @@
-class CoinBlock{
-    constructor(x, y, model, update, draw){
-        this.x = x;
-        this.y = y;
-        this.model = model;
+class CoinBlock extends Sprite{
+    constructor(x, y, model){
+        super(x, y, 50, 50, model);
+
         this.image = new Image();
-        this.image.src = "coinBlock.png";;
+        this.image.src = "coinBlock.png";
+
         this.depletedImage = new Image();
         this.depletedImage.src = "depletedCoinBlock.png";
-        this.w = 50;
-        this.h = 50;
-        this.update = update;
-        this.draw = draw;
-        this.isCoinBlock = true;
-        this.isCoin = false;
         this.blockHit = false;
         this.coinCount = 5;
+        this.isCoinBlock = true;
     }
+
 
     update(){
         if(this.coinCount > 0 && this.blockHit == true){

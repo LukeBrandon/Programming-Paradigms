@@ -1,34 +1,30 @@
-class Coin{
-    consgtructor(x, y, model, image_url, update, draw){
-        this.x = x;
-        this.y = y;
-        this.vertVel = 0.0;
-        this.horVel = randomHorizontalVelocity();
+class Coin extends Sprite{
+
+    constructor(x, y, model){
+        super(x,y, 32, 32, model);
+        this.vertVel = -15.0;
+        this.horVel = (Math.random()*20)-10;
+        //this.horVel =4;
         this.model = model;
-        this.image = new Image();
-        this.image.src = image_url;
-        this.w = 32;
-        this.h = 32;
-        this.update = update;
-        this.draw = draw;
-        this.isCoinBlock = false;
         this.isCoin = true;
+        this.lazyLoad();
     }
 
+    isCoin(){
+        return true;
+    }
 
     update(){
         this.vertVel += 2.0;
         this.y += this.vertVel;
         this.lastTouchCounter++;
 
-        console.log();
-
         //horizontal velocity dampening
-        // if(this.horVel < .25 && this.horVel > -.25)
-        //     this.horVel = 0.0;
-        // else
-        //     this.horVel/=1.1;
-        // this.x += this.horVel;
+        if(this.horVel < .25 && this.horVel > -.25)
+            this.horVel = 0.0;
+        else
+            this.horVel/=1.1;
+        this.x += this.horVel;
 
         //coins stay on ground
         if(this.y + this.image.height > 400){
@@ -43,14 +39,8 @@ class Coin{
         ctx.drawImage(this.image, this.x - this.model.screenPos, this.y);
     }
 
-    randomHorizontalVelocity(){
-        let x = Math.random()*10;
-        let neg = Math.random();
-        if(neg < .5)
-            neg = -1;
-        else
-            neg = 1;
-        this.horVel = neg * x;
-        console.log(this.horVel);
+    lazyLoad(){
+        this.image = new Image();
+        this.image.src = "coin.png";
     }
 }

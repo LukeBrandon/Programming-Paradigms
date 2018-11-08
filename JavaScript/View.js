@@ -9,6 +9,8 @@ class View{
     {
         let ctx = this.canvas.getContext("2d");
         ctx.clearRect(0, 0, 1300, 700);
+        this.canvas.width = window.innerWidth;
+        
 
         //drawBackground
         ctx.drawImage(this.model.backgroundImage, this.model.backgroundX -150, -33);
