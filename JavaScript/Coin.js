@@ -4,7 +4,6 @@ class Coin extends Sprite{
         super(x,y, 32, 32, model);
         this.vertVel = -15.0;
         this.horVel = (Math.random()*20)-10;
-        //this.horVel =4;
         this.model = model;
         this.isCoin = true;
         this.lazyLoad();
@@ -26,11 +25,13 @@ class Coin extends Sprite{
             this.horVel/=1.1;
         this.x += this.horVel;
 
-        //coins stay on ground
-        if(this.y + this.image.height > 400){
-            this.vertVel = 0.0;
-            this.y = 400-this.image.height;
-            this.lastTouchCounter = 0;
+        //deleting when falling off screen
+        for(let i = 0; i < this.model.sprites.length; i++){
+            let thisOne = this.model.sprites[i];
+            
+            if(thisOne.y + thisOne.h > 500){
+                this.model.sprites.splice(i,1);     
+            }
         }
 
     } //end coin update

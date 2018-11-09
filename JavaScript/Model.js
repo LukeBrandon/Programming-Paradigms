@@ -14,8 +14,6 @@ class Model{
 		this.sprites.push(this.coin);
 		this.coinblock1 = new CoinBlock(200, 210, this);
 		this.sprites.push(this.coinblock1);
-
-		this.tempCoin;
 	}
 
 	update(){

@@ -6,9 +6,10 @@ class Mario extends Sprite{
         this.prevY = 0;
         this.vertVel = 0.0;
         this.lastTouchCounter = 0;
-        this.model = model;
+
         this.marioImageCounter = 0;
         this.isMario = true;
+        this.model = model;
         this.lazyLoad();
     }
 
@@ -24,7 +25,12 @@ class Mario extends Sprite{
             let thatSprite = this.model.sprites[i]; //current sprite in for loop
 
             //checks if colliding
-            if(thatSprite != this && this.collides(thatSprite) && !thatSprite.isCoin) {
+            if(thatSprite != this && this.collides(thatSprite)) {
+                // //colliding with coin, before pushing out
+                // if(thatSprite.isCoin == true){
+                //     this.model.sprites.splice(i,1);
+                // }
+                
                 let dir = this.pushOut(thatSprite);
 
                 if(dir == "bottom" && thatSprite.isCoinBlock){
@@ -32,10 +38,8 @@ class Mario extends Sprite{
                     thatSprite.ejectCoin();
                 }
 
-                // broken bc mario always colliding??????
-                // if(thisSprite.isCoin == true)
-                //     this.model.sprites.splice(i,1);
             }
+
         }
 
         //stops on ground
