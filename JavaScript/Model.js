@@ -2,7 +2,7 @@ class Model{
 	constructor(){
 		this.screenPos = 0;
 		this.backgroundImage = new Image();
-		this.backgroundImage.src = "background.png";
+		this.backgroundImage.src = "images/background.png";
 		this.backgroundX = 0;
 		this.sprites = [];
 

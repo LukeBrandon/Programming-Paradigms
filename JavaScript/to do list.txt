@@ -1,9 +1,5 @@
 Lazy loading images
 
-Coins coming out of coin blocks
-
-Coin horizontal velocity broken???
-
 JSON marshal and unmarshalling
     need unmarshal and marshal in mode
     then marshal in every sprite

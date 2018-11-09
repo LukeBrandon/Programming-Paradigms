@@ -28,9 +28,8 @@ class Mario extends Sprite{
                 let dir = this.pushOut(thatSprite);
 
                 if(dir == "bottom" && thatSprite.isCoinBlock){
-                    const tempCoin = new Coin(thatSprite.x, thatSprite.y, this.model, "coin.png");
-                    this.model.sprites.push(tempCoin);
-                    thatSprite.coinCoint--;
+                    console.log(thatSprite.coinCount);
+                    thatSprite.ejectCoin();
                 }
 
                 // broken bc mario always colliding??????
@@ -60,28 +59,28 @@ class Mario extends Sprite{
         this.marioImageCounter ++;
         if(dir == "right"){  //animate left
             if(this.marioImageCounter/5 == 0)
-                this.image.src = "mario1.png"
+                this.image.src = "images/mario1.png"
             if(this.marioImageCounter/5 == 1)
-                this.image.src = "mario2.png";
+                this.image.src = "images/mario2.png";
             if(this.marioImageCounter/5 == 2)
-                this.image.src = "mario3.png";
+                this.image.src = "images/mario3.png";
             if(this.marioImageCounter/5 == 3)
-                this.image.src = "mario4.png";
+                this.image.src = "images/mario4.png";
             if(this.marioImageCounter/5 == 4)
-                this.image.src = "mario5.png";
+                this.image.src = "images/mario5.png";
             //restarts counter at 25
             this.marioImageCounter %= 25;
         }else if(dir == "left"){  //animate right
             if(this.marioImageCounter/5 == 0)
-                this.image.src = "leftMario1.png"
+                this.image.src = "images/leftMario1.png"
             if(this.marioImageCounter/5 == 1)
-                this.image.src = "leftMario2.png";
+                this.image.src = "images/leftMario2.png";
             if(this.marioImageCounter/5 == 2)
-                this.image.src = "leftMario3.png";
+                this.image.src = "images/leftMario3.png";
             if(this.marioImageCounter/5 == 3)
-                this.image.src = "leftMario4.png";
+                this.image.src = "images/leftMario4.png";
             if(this.marioImageCounter/5 == 4)
-                this.image.src = "leftMario5.png";
+                this.image.src = "images/leftMario5.png";
             //restarts counter at 25
             this.marioImageCounter %= 25;
         }
@@ -133,7 +132,7 @@ class Mario extends Sprite{
     lazyLoad(){
         console.log("lazy load");
         this.image = new Image();
-        this.image.src = "mario1.png";
+        this.image.src = "images/mario1.png";
     }
 
 }

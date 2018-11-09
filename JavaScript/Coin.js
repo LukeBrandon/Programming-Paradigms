@@ -41,6 +41,6 @@ class Coin extends Sprite{
 
     lazyLoad(){
         this.image = new Image();
-        this.image.src = "coin.png";
+        this.image.src = "images/coin.png";
     }
 }
