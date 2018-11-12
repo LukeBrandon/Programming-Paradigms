@@ -25,7 +25,6 @@ class CoinBlock extends Sprite{
     }
 
     ejectCoin(){
-        console.log(this.coinCount);
         if(this.coinCount > 0){
             const tempCoin = new Coin(this.x, this.y, this.model);
             this.model.sprites.push(tempCoin);
