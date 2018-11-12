@@ -27,29 +27,14 @@ class Mario extends Sprite{
         for(let i = 0; i < this.model.sprites.length; i++){
             let thatSprite = this.model.sprites[i]; //current sprite in for loop
 
-            //checks if colliding
-            if(thatSprite != this && this.collides(thatSprite)) {
-                // //colliding with coin, before pushing out
-                // if(thatSprite.isCoin == true){
-                //     this.model.sprites.splice(i,1);
-                // }
-                
+            //checks if colliding and coin block colliding
+            if(thatSprite != this && this.collides(thatSprite)) {    
                 let dir = this.pushOut(thatSprite);
-
-                if(dir == "bottom" && thatSprite.isCoinBlock){
+                if(dir == "bottom" && thatSprite.isCoinBlock)
                     thatSprite.ejectCoin();
-                }
-
             }
-
-        }
-
-        //stops on ground
-        if(this.y + this.image.height > 400){
-            this.vertVel = 0.0;
-            this.y = 400-this.image.height;
-            this.lastTouchCounter = 0;
-        }
+        }//end iterating sprites
+        
     }//end mario update
 
     draw(ctx){

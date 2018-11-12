@@ -24,6 +24,8 @@ class Model{
 		this.mario = new Mario(50, 50, this);
 		this.sprites.push(this.mario);
 
+		this.ground = new Brick(-500, 400, 4000, 100, this);
+		this.sprites.push(this.ground);
 		this.brick0 = new Brick(-500, 0, 500, 400, this);
 		this.sprites.push(this.brick0);
 		this.brick1 = new Brick(350, 300, 150, 100, this);
@@ -34,7 +36,7 @@ class Model{
 		this.sprites.push(this.coinblock1);
 		this.coinblock2 = new CoinBlock(500, 120, this);
 		this.sprites.push(this.coinblock2);
-		this.coinblock3 = new CoinBlock(600, 200, this);
+		this.coinblock3 = new CoinBlock(600, 205, this);
 		this.sprites.push(this.coinblock3);
 	}
 
