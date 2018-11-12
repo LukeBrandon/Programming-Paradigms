@@ -6,14 +6,7 @@ class Model{
 		this.backgroundX = 0;
 		this.sprites = [];
 
-		this.mario = new Mario(50, 50, this);
-		this.sprites.push(this.mario);
-		this.brick1 = new Brick(350, 300, 150, 100, this);
-		this.sprites.push(this.brick1);
-		this.coin = new Coin(200, 100, this);
-		this.sprites.push(this.coin);
-		this.coinblock1 = new CoinBlock(200, 210, this);
-		this.sprites.push(this.coinblock1);
+		this.initializeMap();
 	}
 
 	update(){
@@ -26,6 +19,24 @@ class Model{
 		}
 
 	}//end model update
+
+	initializeMap(){
+		this.mario = new Mario(50, 50, this);
+		this.sprites.push(this.mario);
+
+		this.brick0 = new Brick(-500, 0, 500, 400, this);
+		this.sprites.push(this.brick0);
+		this.brick1 = new Brick(350, 300, 150, 100, this);
+		this.sprites.push(this.brick1);
+		this.brick2 = new Brick(350, 50, 150, 100, this);
+		this.sprites.push(this.brick2);
+		this.coinblock1 = new CoinBlock(200, 210, this);
+		this.sprites.push(this.coinblock1);
+		this.coinblock2 = new CoinBlock(500, 120, this);
+		this.sprites.push(this.coinblock2);
+		this.coinblock3 = new CoinBlock(600, 200, this);
+		this.sprites.push(this.coinblock3);
+	}
 
 }//end model class
 

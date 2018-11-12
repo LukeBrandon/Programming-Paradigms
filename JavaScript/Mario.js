@@ -9,6 +9,9 @@ class Mario extends Sprite{
 
         this.marioImageCounter = 0;
         this.isMario = true;
+        this.image = new Image();
+        this.images = [];
+        this.leftImages = [];
         this.model = model;
         this.lazyLoad();
     }
@@ -34,7 +37,6 @@ class Mario extends Sprite{
                 let dir = this.pushOut(thatSprite);
 
                 if(dir == "bottom" && thatSprite.isCoinBlock){
-                    console.log(thatSprite.coinCount);
                     thatSprite.ejectCoin();
                 }
 
@@ -63,28 +65,28 @@ class Mario extends Sprite{
         this.marioImageCounter ++;
         if(dir == "right"){  //animate left
             if(this.marioImageCounter/5 == 0)
-                this.image.src = "images/mario1.png"
+                this.image = this.images[0];
             if(this.marioImageCounter/5 == 1)
-                this.image.src = "images/mario2.png";
+                this.image = this.images[1];
             if(this.marioImageCounter/5 == 2)
-                this.image.src = "images/mario3.png";
+                this.image = this.images[2];
             if(this.marioImageCounter/5 == 3)
-                this.image.src = "images/mario4.png";
+                this.image = this.images[3];
             if(this.marioImageCounter/5 == 4)
-                this.image.src = "images/mario5.png";
+                this.image = this.images[4];
             //restarts counter at 25
             this.marioImageCounter %= 25;
         }else if(dir == "left"){  //animate right
             if(this.marioImageCounter/5 == 0)
-                this.image.src = "images/leftMario1.png"
+                this.image = this.leftImages[0];
             if(this.marioImageCounter/5 == 1)
-                this.image.src = "images/leftMario2.png";
+                this.image = this.leftImages[1];
             if(this.marioImageCounter/5 == 2)
-                this.image.src = "images/leftMario3.png";
+                this.image = this.leftImages[2];
             if(this.marioImageCounter/5 == 3)
-                this.image.src = "images/leftMario4.png";
+                this.image = this.leftImages[3];
             if(this.marioImageCounter/5 == 4)
-                this.image.src = "images/leftMario5.png";
+                this.image = this.leftImages[4];
             //restarts counter at 25
             this.marioImageCounter %= 25;
         }
@@ -135,8 +137,42 @@ class Mario extends Sprite{
 
     lazyLoad(){
         console.log("lazy load");
-        this.image = new Image();
-        this.image.src = "images/mario1.png";
+        this.image1 = new Image();
+        this.image2 = new Image();
+        this.image3 = new Image();
+        this.image4 = new Image();
+        this.image5 = new Image();
+        this.image1.src = "images/mario1.png";
+        this.image2.src = "images/mario2.png";
+        this.image3.src = "images/mario3.png";
+        this.image4.src = "images/mario4.png";
+        this.image5.src = "images/mario5.png";
+
+        this.images.push(this.image1);
+        this.images.push(this.image2);
+        this.images.push(this.image3);
+        this.images.push(this.image4);
+        this.images.push(this.image5);
+
+        //sets default image
+        this.image = this.images[0];
+
+        this.leftImage1 = new Image();
+        this.leftImage2 = new Image();
+        this.leftImage3 = new Image();
+        this.leftImage4 = new Image();
+        this.leftImage5 = new Image();
+        this.leftImage1.src = "images/leftMario1.png";
+        this.leftImage2.src = "images/leftMario2.png";
+        this.leftImage3.src = "images/leftMario3.png";
+        this.leftImage4.src = "images/leftMario4.png";
+        this.leftImage5.src = "images/leftMario5.png";
+
+        this.leftImages.push(this.leftImage1);
+        this.leftImages.push(this.leftImage2);
+        this.leftImages.push(this.leftImage3);
+        this.leftImages.push(this.leftImage4);
+        this.leftImages.push(this.leftImage5);
     }
 
 }
