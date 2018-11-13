@@ -2,6 +2,7 @@ class Coin extends Sprite{
 
     constructor(x, y, model){
         super(x,y, 32, 32, model);
+        
         this.vertVel = -15.0;
         this.horVel = (Math.random()*20)-10;
         this.model = model;
@@ -28,7 +29,7 @@ class Coin extends Sprite{
         //deleting when falling off screen
         for(let i = 0; i < this.model.sprites.length; i++){
             let thisOne = this.model.sprites[i];
-            
+
             if(thisOne.y + thisOne.h > 500){
                 this.model.sprites.splice(i,1);     
             }
