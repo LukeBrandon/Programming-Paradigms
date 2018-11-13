@@ -121,7 +121,6 @@ class Mario extends Sprite{
     }
 
     lazyLoad(){
-        console.log("lazy load");
         this.image1 = new Image();
         this.image2 = new Image();
         this.image3 = new Image();
