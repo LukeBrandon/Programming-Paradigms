@@ -2,7 +2,6 @@ class Coin extends Sprite{
 
     constructor(x, y, model){
         super(x,y, 32, 32, model);
-        
         this.vertVel = -15.0;
         this.horVel = (Math.random()*20)-10;
         this.model = model;
