@@ -12,7 +12,6 @@ class Mario extends Sprite{
         this.image = new Image();
         this.images = [];
         this.leftImages = [];
-        this.model = model;
         this.lazyLoad();
     }
 
@@ -32,6 +31,19 @@ class Mario extends Sprite{
                 let dir = this.pushOut(thatSprite);
                 if(dir == "bottom" && thatSprite.isCoinBlock)
                     thatSprite.ejectCoin();
+                
+                //Goomba logic
+                if(thatSprite.isGoomba){
+                    if(dir == "top"){  //his goomba from above
+                        console.log("Mario killed Goomba");
+                        this.model.sprites.splice(i,1);   //deletes goomba
+                        this.model.mario.vertVel = -10.0; //makes mario bounce on goomba
+                    }
+                    if(dir != "top"){
+                        console.log("Mario Killed by goomba");
+                    }
+               }
+
             }
         }//end iterating sprites
         
@@ -39,12 +51,7 @@ class Mario extends Sprite{
 
     draw(ctx){
         ctx.drawImage(this.image, this.x - this.model.screenPos, this.y);
-    }
-
-    oldPosition(){
-        this.prevX = this.x;
-        this.prevY = this.y;
-    }
+    } 
 
     animate(dir){
         this.marioImageCounter ++;
@@ -77,48 +84,7 @@ class Mario extends Sprite{
         }
     }
 
-    collides(that){
-        if(this.y + this.h <= that.y){     //above
-            return false;
-        }else if(this.x + this.w <= that.x){     //right side of mario 
-            return false;
-        }else if(this.x >= that.x + that.w){      //left side of mario
-            return false;
-        }else if(this.y >= that.y + that.h){      //below
-            return false;
-        }else
-            return true; 
-    }
-
-    pushOut(that){
-            //entering from top
-            if(this.y + this.h >= that.y && !(this.prevY + this.h > that.y)){  
-                this.y = that.y - this.h;
-                this.lastTouchCounter = 0;
-                this.vertVel = 0.0;
-                return "top";
-
-            //entering from bottom
-            }else if(this.y <= that.y + that.h && !(this.prevY < that.y + that.h)){  
-                this.y = that.y + that.h;
-                this.lastTouchCounter = 100; //so mario cant keep jumping 
-                this.vertVel = 0.2;
-                return "bottom";
-
-            //entering from left
-            }else if(this.x + this.w >= that.x && !(this.prevX + this.w > that.x) ){
-                this.x = that.x  - this.w;   
-                return "left";
-
-            //entering from right
-            }else if(this.x <= (that.x + that.w) && !(this.prevX < (that.x + that.w) )){ 
-                this.x = that.x + that.w;
-                return "right";
-
-            }else
-                return "not";
-
-    }
+    
 
     lazyLoad(){
         this.image1 = new Image();

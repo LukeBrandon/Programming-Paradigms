@@ -38,6 +38,9 @@ class Model{
 		this.sprites.push(this.coinblock2);
 		this.coinblock3 = new CoinBlock(600, 205, this);
 		this.sprites.push(this.coinblock3);
+
+		this.goomba1 = new Goomba(100, 200, this);
+		this.sprites.push(this.goomba1);
 	}
 
 }//end model class

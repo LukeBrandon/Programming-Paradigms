@@ -44,7 +44,9 @@ class Controller{
             this.model.mario.x -=10; 
             this.model.mario.animate("left");
         }
-        if(this.key_space && this.model.mario.lastTouchCounter < 10) this.model.mario.vertVel = -17.0;
+        if(this.key_space && this.model.mario.lastTouchCounter < 10){
+            this.model.mario.vertVel = -17.0;
+        }
 
 
     }
