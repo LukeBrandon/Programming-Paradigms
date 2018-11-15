@@ -1,6 +1,5 @@
 class CoinBlock extends Sprite{
     constructor(x, y, model){
-        console.log("coinblock constructor");
         super(x, y, 50, 50, model);
 
         this.image = new Image();
