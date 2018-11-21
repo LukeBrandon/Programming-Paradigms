@@ -27,7 +27,7 @@ function httpPost(url, payload, callback)
 //response back from the server
 function cb(response)   {
 
-	//alert("The back-end server sent back player data: " + response);
+	alert("The back-end server sent back player data: " + response);
 
 	// Parse the JSON  
     let ob = JSON.parse(response);
