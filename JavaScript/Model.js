@@ -17,7 +17,8 @@ class Model{
 		for(let i = 0; i < this.sprites.length; i++){
 			this.sprites[i].update();
 		}
-
+		//sendToServer();
+		
 	}//end model update
 
 	initializeMap(){
