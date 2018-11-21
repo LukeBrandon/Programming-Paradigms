@@ -15,9 +15,11 @@ import java.util.TimeZone;
 class Player{
     int x;
     int y;
+    double id;
     Player(){
         x = 0;
         y = 0;
+        id = 0;
     }
 }
 
@@ -96,15 +98,24 @@ class Server
 		System.out.println("Received the following payload: " + payload);
         Json incoming = Json.parse(payload);
 
-        //--------------saving data sent from the client ----------------------
-        p1.x = 10;
-        p1.y = 100;
-        p2.x = 20;
-        p2.y = 300;
-        // p1.x = incoming.p1x;
-        // p1.y = incoming.p1y;
-        // p2.x = incoming.p2x;
-        // p2.y = incoming.p2y;
+        //setting up id's one time only
+        if(p1.id == 0){
+            p1.id = incoming.getDouble("player");
+        }else if(p2.id == 0 && p1.id != 0){
+            p2.id = incoming.getDouble("player");
+        }else{  }
+
+        //---------------saving data sent from the client---------------
+        if(incoming.getDouble("player") == p1.id){
+            p1.x = (int)incoming.getDouble("x");
+            p1.y = (int)incoming.getDouble("y");
+        }else if(incoming.getDouble("player") == p2.id){
+            p2.x = (int)incoming.getDouble("x");
+            p2.y = (int)incoming.getDouble("y");
+        }else{
+            //this game only supports 2 players at this point
+        }
+
 
 		//-----Make a response -- sending data of players back to the client --------
 		Json outgoing = Json.newObject();
@@ -116,7 +127,7 @@ class Server
 		String response = outgoing.toString();
 
 
-		// Send HTTP headers
+		//-------------------Send HTTP headers----------------------------
 		System.out.println("----------The server replied: ----------");
 		String dateString = getServerTime();
 		PrintWriter out = new PrintWriter(os, true);
@@ -138,15 +149,17 @@ class Server
         Player p1 = new Player();
         Player p2 = new Player();
 
+
 		// Make a socket to listen for clients
-		int port = 1234;
+		int port = 9258;
 		String ServerURL = "http://localhost:" + Integer.toString(port) + "/index.html";
 		ServerSocket serverSocket = new ServerSocket(port);
 
 		// Start the web browser
-		if(Desktop.isDesktopSupported())
-			Desktop.getDesktop().browse(new URI(ServerURL));
-		else
+		if(Desktop.isDesktopSupported()){
+            Desktop.getDesktop().browse(new URI(ServerURL));
+            Desktop.getDesktop().browse(new URI(ServerURL));
+        }else
 			System.out.println("Please direct your browser to " + ServerURL);
 
 		// Handle requests from clients

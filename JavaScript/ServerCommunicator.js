@@ -1,4 +1,4 @@
-
+const playerNum = (Math.random()*100) +1;   
 
 function httpPost(url, payload, callback)
 {
@@ -39,41 +39,17 @@ function cb(response){
 function sendToServer()
 {
 	// Find the text field
-    let msg1 = document.getElementById("p1x").value;
-    console.log("msg1: " + msg1);
-	let msg2 = document.getElementById("p1y").value;
+    let xFromGame = 11;
+    let yFromGame = 111;
 
-	// Make a JSON blob
-	let ob = {};
-    ob.player = "1";
-    //ob.x = model.mario.x;
-    //ob.y = model.mario.y;
-	ob.p1x = msg1;
-	ob.p1y = msg2;
+	// Make a JSON blob to send to this server
+    let ob = {};
+    console.log("Player ID: " + playerNum);
+    ob.player = playerNum;
+	ob.x = xFromGame;
+    ob.y = yFromGame;
 	let json_string = JSON.stringify(ob);
 
 	// Send the JSON blob to the server
 	httpPost("ajax_handler.html", json_string, cb);
 }
-
-function player2SendToServer()
-{
-	// Find the text field
-	let msg1 = document.getElementById("p1x");
-	let msg2 = document.getElementById("p1y");
-
-	// Make a JSON blob
-	let ob = {};
-    ob.player = "2";
-    //ob.x = model.mario.x;
-    //ob.y = model.mario.y;
-	ob.p2x = msg1;
-	ob.p2y = msg2;
-	let json_string = JSON.stringify(ob);
-
-	// Send the JSON blob to the server
-	httpPost("ajax_handler.html", json_string, cb);
-}
-
-
-
