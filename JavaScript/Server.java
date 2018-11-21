@@ -119,9 +119,11 @@ class Server
 
 		//-----Make a response -- sending data of players back to the client --------
 		Json outgoing = Json.newObject();
-		outgoing.add("Response", "Player data has been recieved, sending player data back to users");
+        outgoing.add("Response", "Player data has been recieved, sending player data back to users");
+        outgoing.add("p1id", p1.id);
 		outgoing.add("p1x", p1.x);
-		outgoing.add("p1y", p1.y);
+        outgoing.add("p1y", p1.y);
+        outgoing.add("p2id", p2.id);
 		outgoing.add("p2x", p2.x);
 		outgoing.add("p2y", p2.y);
 		String response = outgoing.toString();

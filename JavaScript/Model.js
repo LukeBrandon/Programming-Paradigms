@@ -24,6 +24,10 @@ class Model{
 		this.mario = new Mario(50, 50, this);
 		this.sprites.push(this.mario);
 
+		//other playe for multiplayer purposes
+		this.otherPlayer = new Mario(50,50,this);
+		this.sprites.push(this.otherPlayer);
+
 		this.ground = new Brick(-500, 400, 4000, 100, this);
 		this.sprites.push(this.ground);
 		this.brick0 = new Brick(-500, 0, 500, 400, this);

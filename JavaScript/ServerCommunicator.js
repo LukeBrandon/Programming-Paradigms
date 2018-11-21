@@ -25,29 +25,35 @@ function httpPost(url, payload, callback)
 }
 
 //response back from the server
-function cb(response){
+function cb(response)   {
 
-	alert("The back-end server sent back player data: " + response);
+	//alert("The back-end server sent back player data: " + response);
 
-	// Parse the JSON
-	let ob = JSON.parse(response);
+	// Parse the JSON  
+    let ob = JSON.parse(response);
+    
+    //giving data from server to the game
+    if(ob.p1id == playerNum){
+        game.model.otherPlayer.x = ob.p2x;
+        game.model.otherPlayer.y = ob.p2y;
+    }
+    if(ob.p2id == playerNum){
+        game.model.otherPlayer.x = ob.p1x;
+        game.model.otherPlayer.x = ob.p1x;
+    }
 
-	console.log("Player 1 data is: x = " + ob.p1x + " // y = " + ob.p1y);
-	console.log("Player 2 data is: x = " + ob.p2x + " // y = " + ob.p2y);
+	console.log("Player 1 data is: x = " + ob.p1x + " // y = " + ob.p1y + "// id = " + ob.p1id);
+	console.log("Player 2 data is: x = " + ob.p2x + " // y = " + ob.p2y + "// id = " + ob.p2id);
 }
 
-function sendToServer()
-{
-	// Find the text field
-    let xFromGame = 11;
-    let yFromGame = 111;
+function sendToServer() {
 
 	// Make a JSON blob to send to this server
     let ob = {};
     console.log("Player ID: " + playerNum);
     ob.player = playerNum;
-	ob.x = xFromGame;
-    ob.y = yFromGame;
+	ob.x = game.model.mario.x;   //should get the values from mario on this instance
+    ob.y = game.model.mario.y;
 	let json_string = JSON.stringify(ob);
 
 	// Send the JSON blob to the server
