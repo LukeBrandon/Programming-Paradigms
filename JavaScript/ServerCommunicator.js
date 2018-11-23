@@ -39,7 +39,7 @@ function cb(response)   {
     }
     if(ob.p2id == playerNum){
         game.model.otherPlayer.x = ob.p1x;
-        game.model.otherPlayer.y = ob.p1x;
+        game.model.otherPlayer.y = ob.p1y;
         //game.model.otherPlayer.image = game.model.mario.images(ob.p1image);
     }
 

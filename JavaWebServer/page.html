@@ -1,0 +1,91 @@
+<html><head>
+<script type="text/javascript">
+
+//connecting to server
+function httpPost(url, payload, callback)
+{
+	let request = new XMLHttpRequest();
+	request.onreadystatechange = function()
+	{
+		if(request.readyState == 4)
+		{
+			if(request.status == 200)
+			callback(request.responseText);
+			else
+			{
+				if(request.status == 0 && request.statusText.length == 0)
+					alert("Connection failed");
+				else
+					alert("Server returned status " + request.status + ", " + request.statusText);
+			}
+		}
+	};
+	request.open('post', url, true);
+	request.setRequestHeader('Content-Type',
+	'application/x-www-form-urlencoded');
+	request.send(payload);
+}
+
+//call back is called when client gets call back from server
+function cb(response)
+{
+	//alert("The back-end server replied: " + response);
+	
+	// Parse the JSON
+	//!!!!!!!!!!!!!!!!!!!Should get both players positiosn back and draw them
+	let ob = JSON.parse(response);
+	
+	alert("The server has position as: " + ob.x + "," + ob.y);
+}
+
+//sending to the server
+function toServer()
+{
+	// Find the text field
+	let msgX = document.getElementById("playerX");
+	let msgY = document.getElementById("playerY");
+
+
+	// Make a JSON blob
+	let ob = {};
+	ob.player = 1;
+	ob.x = msgX.value;
+	ob.y = msgY.value;
+	let json_string = JSON.stringify(ob);
+
+	// Send the JSON blob to the server
+	httpPost("ajax_handler.html", json_string, cb);
+}
+
+//sending player 2 to server
+function p2ToServer(){
+	// Find the text field
+	let msgX = document.getElementById("2playerX");
+	let msgY = document.getElementById("2playerY");
+
+
+	// Make a JSON blob
+	let ob = {};
+	ob.player = 2;
+	ob.x = msgX.value;
+	ob.y = msgY.value;
+	let json_string = JSON.stringify(ob);
+
+	// Send the JSON blob to the server
+	httpPost("ajax_handler.html", json_string, cb);
+}
+
+
+</script>
+</head><body>
+Here is a picture of a turtle:
+<img src="turtle.png"><br><br>
+And here is a place to enter a message:<br>
+  <input type="text" id="playerX" value="x">
+  <input type="text" id="playerY" value="y">
+  <input type="button" onclick="toServer();" value="sendPlayer1">
+  <br>
+  <input type="text" id="2playerX" value="x2">
+  <input type="text" id="2playerY" value="y2">
+  <input type="button" onclick="p2ToServer();" value="sendPlayer2">
+</body></html>
