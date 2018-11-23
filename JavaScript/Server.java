@@ -16,10 +16,12 @@ class Player{
     int x;
     int y;
     double id;
+    int imageNum;
     Player(){
         x = 0;
         y = 0;
         id = 0.0;
+        imageNum = 0;
     }
 }
 
@@ -101,21 +103,19 @@ class Server
         //setting up id's one time only
         if(p1.id == 0){
             p1.id = incoming.getDouble("player");
-            System.out.println("set p1 id as " + p1.id);
         }else if(p2.id == 0.0 && p1.id != 0.0 && incoming.getDouble("player") != p1.id){
             p2.id = incoming.getDouble("player");
-            System.out.println("set p2 id as " + p2.id);
         }else{     }
 
         //---------------saving data sent from the client---------------
         if(incoming.getDouble("player") == p1.id){
-            System.out.println("setting incoming data to player 1");
             p1.x = (int)incoming.getDouble("x");
             p1.y = (int)incoming.getDouble("y");
+            //p1.imageNum = (int)incoming.getDouble("image");
         }else if(incoming.getDouble("player") == p2.id){
-            System.out.println("setting incoming data to player 2");
             p2.x = (int)incoming.getDouble("x");
             p2.y = (int)incoming.getDouble("y");
+            //p2.imageNum = (int)incoming.getDouble("image");
         }else{
             System.out.println("did not find the player the data was supposed to be sent to");
             //this game only supports 2 players at this point
@@ -128,9 +128,11 @@ class Server
         outgoing.add("p1id", p1.id);
 		outgoing.add("p1x", p1.x);
         outgoing.add("p1y", p1.y);
+        //outgoing.add("p1image", p1.imageNum);
         outgoing.add("p2id", p2.id);
 		outgoing.add("p2x", p2.x);
-		outgoing.add("p2y", p2.y);
+        outgoing.add("p2y", p2.y);
+        //outgoing.add("p2image", p2.imageNum);
 		String response = outgoing.toString();
 
 

@@ -26,7 +26,7 @@ function httpPost(url, payload, callback)
 
 //response back from the server
 function cb(response)   {
-    
+
 	// Parse the JSON  
     let ob = JSON.parse(response);
     
@@ -35,10 +35,12 @@ function cb(response)   {
     if(ob.p1id == playerNum){
         game.model.otherPlayer.x = ob.p2x;
         game.model.otherPlayer.y = ob.p2y;
+        //game.model.otherPlayer.image = game.model.mario.images(ob.p2image);
     }
     if(ob.p2id == playerNum){
         game.model.otherPlayer.x = ob.p1x;
-        game.model.otherPlayer.x = ob.p1x;
+        game.model.otherPlayer.y = ob.p1x;
+        //game.model.otherPlayer.image = game.model.mario.images(ob.p1image);
     }
 
 	console.log("Player 1 data is: x = " + ob.p1x + " // y = " + ob.p1y + "// id = " + ob.p1id);
@@ -52,6 +54,7 @@ function sendToServer() {
     ob.player = playerNum;
 	ob.x = game.model.mario.x;   //should get the values from mario on this instance
     ob.y = game.model.mario.y;
+    //ob.imageNum = game.mogel.mario.marioImageCounter/5 % 25;
 	let json_string = JSON.stringify(ob);
 
 	// Send the JSON blob to the server
