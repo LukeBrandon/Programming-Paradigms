@@ -26,13 +26,12 @@ function httpPost(url, payload, callback)
 
 //response back from the server
 function cb(response)   {
-
-	alert("The back-end server sent back player data: " + response);
-
+    
 	// Parse the JSON  
     let ob = JSON.parse(response);
     
     //giving data from server to the game
+    //saves the data in the other player
     if(ob.p1id == playerNum){
         game.model.otherPlayer.x = ob.p2x;
         game.model.otherPlayer.y = ob.p2y;
@@ -50,7 +49,6 @@ function sendToServer() {
 
 	// Make a JSON blob to send to this server
     let ob = {};
-    console.log("Player ID: " + playerNum);
     ob.player = playerNum;
 	ob.x = game.model.mario.x;   //should get the values from mario on this instance
     ob.y = game.model.mario.y;

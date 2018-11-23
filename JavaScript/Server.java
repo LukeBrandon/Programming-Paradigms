@@ -19,7 +19,7 @@ class Player{
     Player(){
         x = 0;
         y = 0;
-        id = 0;
+        id = 0.0;
     }
 }
 
@@ -101,18 +101,23 @@ class Server
         //setting up id's one time only
         if(p1.id == 0){
             p1.id = incoming.getDouble("player");
-        }else if(p2.id == 0 && p1.id != 0){
+            System.out.println("set p1 id as " + p1.id);
+        }else if(p2.id == 0.0 && p1.id != 0.0 && incoming.getDouble("player") != p1.id){
             p2.id = incoming.getDouble("player");
-        }else{  }
+            System.out.println("set p2 id as " + p2.id);
+        }else{     }
 
         //---------------saving data sent from the client---------------
         if(incoming.getDouble("player") == p1.id){
+            System.out.println("setting incoming data to player 1");
             p1.x = (int)incoming.getDouble("x");
             p1.y = (int)incoming.getDouble("y");
         }else if(incoming.getDouble("player") == p2.id){
+            System.out.println("setting incoming data to player 2");
             p2.x = (int)incoming.getDouble("x");
             p2.y = (int)incoming.getDouble("y");
         }else{
+            System.out.println("did not find the player the data was supposed to be sent to");
             //this game only supports 2 players at this point
         }
 

@@ -14,4 +14,4 @@ class Game{
 
 
 let game = new Game();
-let timer = setInterval(function() { game.onTimer(); }, 40);
+let timer = setInterval(function() { game.onTimer(); sendToServer(); }, 40);

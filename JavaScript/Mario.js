@@ -42,7 +42,7 @@ class Mario extends Sprite{
                     if(dir != "top"){
                         console.log("Mario Killed by goomba");
                     }
-               }
+                }
 
             }
         }//end iterating sprites
