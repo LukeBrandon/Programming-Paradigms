@@ -29,7 +29,7 @@ class CoinBlock extends Sprite{
             this.model.sprites.push(tempCoin);
             this.coinCount--;
         }else{
-            console.log("coin Block is out of coins");
+            //console.log("coin Block is out of coins");
         }
     }
 }

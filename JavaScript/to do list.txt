@@ -10,3 +10,7 @@ Marshalling notes from lecture
 Multiplayer Support
     - works if having sendToServer button but not if calling sendToServer in an update method
     - why tho?
+
+
+Multiplayer
+    - self for each tab is mario and the other one is the turtle or whatever other image

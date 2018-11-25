@@ -1,4 +1,4 @@
-class Mario extends Sprite{
+class Luigi extends Sprite{
 
     constructor(x, y, model){
         super(x, y, 60, 95, model);
@@ -7,13 +7,11 @@ class Mario extends Sprite{
         this.vertVel = 0.0;
         this.lastTouchCounter = 0;
 
-        this.marioImageCounter = 0;
+        this.luigiImageCounter = 0;
         this.isMario = true;
         this.image = new Image();
         this.images = [];
         this.leftImages = [];
-        this.turtle = new Image();  //used for drawing other player until figure out luigi
-        this.turtle.src = "images/turtle.png";
         this.lazyLoad();
     }
 
@@ -56,33 +54,33 @@ class Mario extends Sprite{
     } 
 
     animate(dir){
-        this.marioImageCounter ++;
+        this.luigiImageCounter ++;
         if(dir == "right"){  //animate left
-            if(this.marioImageCounter/5 == 0)
+            if(this.luigiImageCounter/5 == 0)
                 this.image = this.images[0];
-            if(this.marioImageCounter/5 == 1)
+            if(this.luigiImageCounter/5 == 1)
                 this.image = this.images[1];
-            if(this.marioImageCounter/5 == 2)
+            if(this.luigiImageCounter/5 == 2)
                 this.image = this.images[2];
-            if(this.marioImageCounter/5 == 3)
+            if(this.luigiImageCounter/5 == 3)
                 this.image = this.images[3];
-            if(this.marioImageCounter/5 == 4)
+            if(this.luigiImageCounter/5 == 4)
                 this.image = this.images[4];
             //restarts counter at 25
-            this.marioImageCounter %= 25;
+            this.luigiImageCounter %= 25;
         }else if(dir == "left"){  //animate right
-            if(this.marioImageCounter/5 == 0)
+            if(this.luigiImageCounter/5 == 0)
                 this.image = this.leftImages[0];
-            if(this.marioImageCounter/5 == 1)
+            if(this.luigiImageCounter/5 == 1)
                 this.image = this.leftImages[1];
-            if(this.marioImageCounter/5 == 2)
+            if(this.luigiImageCounter/5 == 2)
                 this.image = this.leftImages[2];
-            if(this.marioImageCounter/5 == 3)
+            if(this.luigiImageCounter/5 == 3)
                 this.image = this.leftImages[3];
-            if(this.marioImageCounter/5 == 4)
+            if(this.luigiImageCounter/5 == 4)
                 this.image = this.leftImages[4];
             //restarts counter at 25
-            this.marioImageCounter %= 25;
+            this.luigiImageCounter %= 25;
         }
     }
 
@@ -94,11 +92,11 @@ class Mario extends Sprite{
         this.image3 = new Image();
         this.image4 = new Image();
         this.image5 = new Image();
-        this.image1.src = "images/mario1.png";
-        this.image2.src = "images/mario2.png";
-        this.image3.src = "images/mario3.png";
-        this.image4.src = "images/mario4.png";
-        this.image5.src = "images/mario5.png";
+        this.image1.src = "images/turtle.png";
+        this.image2.src = "images/turtle.png";
+        this.image3.src = "images/turtle.png";
+        this.image4.src = "images/turtle.png";
+        this.image5.src = "images/turtle.png";
 
         this.images.push(this.image1);
         this.images.push(this.image2);
@@ -114,11 +112,11 @@ class Mario extends Sprite{
         this.leftImage3 = new Image();
         this.leftImage4 = new Image();
         this.leftImage5 = new Image();
-        this.leftImage1.src = "images/leftMario1.png";
-        this.leftImage2.src = "images/leftMario2.png";
-        this.leftImage3.src = "images/leftMario3.png";
-        this.leftImage4.src = "images/leftMario4.png";
-        this.leftImage5.src = "images/leftMario5.png";
+        this.leftImage1.src = "images/turtle.png";
+        this.leftImage2.src = "images/turtle.png";
+        this.leftImage3.src = "images/turtle.png";
+        this.leftImage4.src = "images/turtle.png";
+        this.leftImage5.src = "images/turtle.png";
 
         this.leftImages.push(this.leftImage1);
         this.leftImages.push(this.leftImage2);

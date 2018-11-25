@@ -28,7 +28,6 @@ class Player{
 class Server
 {
 
-
 	static String getServerTime()
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -111,11 +110,11 @@ class Server
         if(incoming.getDouble("player") == p1.id){
             p1.x = (int)incoming.getDouble("x");
             p1.y = (int)incoming.getDouble("y");
-            //p1.imageNum = (int)incoming.getDouble("image");
+            //p1.imageNum = (int)incoming.getDouble("imageNum");
         }else if(incoming.getDouble("player") == p2.id){
             p2.x = (int)incoming.getDouble("x");
             p2.y = (int)incoming.getDouble("y");
-            //p2.imageNum = (int)incoming.getDouble("image");
+            //p2.imageNum = (int)incoming.getDouble("imageNum");
         }else{
             System.out.println("did not find the player the data was supposed to be sent to");
             //this game only supports 2 players at this point
@@ -124,15 +123,18 @@ class Server
 
 		//-----Make a response -- sending data of players back to the client --------
 		Json outgoing = Json.newObject();
-        outgoing.add("Response", "Player data has been recieved, sending player data back to users");
+		//System.out.println("p1 image num: " + p1.imageNum + "   // p2 image num: " + p2.imageNum);
+		outgoing.add("Response", "Player data has been recieved, sending player data back to users");
         outgoing.add("p1id", p1.id);
 		outgoing.add("p1x", p1.x);
         outgoing.add("p1y", p1.y);
-        //outgoing.add("p1image", p1.imageNum);
+		//outgoing.add("p1image", p1.imageNum);	//for animating on the other screen 
+		
         outgoing.add("p2id", p2.id);
 		outgoing.add("p2x", p2.x);
         outgoing.add("p2y", p2.y);
-        //outgoing.add("p2image", p2.imageNum);
+		//outgoing.add("p2image", p2.imageNum);
+		
 		String response = outgoing.toString();
 
 
