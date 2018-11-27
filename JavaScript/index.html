@@ -25,5 +25,19 @@
 
 <body style="overflow:hidden">
 	<input type="button" onclick="sendToServer();" value="send to server">
+
+	<table>
+		<tr><td>
+			<form>
+				<select id="chatHistory" size="12" style="width:100%">
+				</select>
+			</form>
+		</td></tr>
+		<tr><td>
+			<input type="text" size=50 id="message">
+			<button onclick="sendMessageToServer()">Send</button>
+		</td></tr>
+	</table>
+
 </body>
 </html>

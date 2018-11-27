@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.ArrayList;
 
 class Player{
     int x;
@@ -37,11 +38,9 @@ class Server
 		return dateFormat.format(calendar.getTime());
 	}
 
-	static void sendLine(PrintWriter out, String line)
-	{
+	static void sendLine(PrintWriter out, String line){
 		out.print(line); // Send over the socket
 		out.print("\r\n");
-		System.out.println(line); // Print it to the console too, just to make debugging easier
 	}
 
 	static void onGet(OutputStream os, String url) throws Exception
@@ -51,7 +50,6 @@ class Server
 		File f = new File(filename);
 		Path path = Paths.get(filename);
 		String dateString = getServerTime();
-		System.out.println("----------The server replied: ----------");
 		if(f.exists() && !f.isDirectory())
 		{
 			// Read the file from disk
@@ -91,55 +89,75 @@ class Server
 		}
 	}
 
-	static void onPost(OutputStream os, String url, char[] incomingPayload, Player p1, Player p2){
+	static void onPost(OutputStream os, String url, char[] incomingPayload, Player p1, Player p2, ArrayList<String> messages){
+		boolean playerData = false;
+		String incomingMessage = "";
 
 		// Parse the incoming payload
- 		System.out.println("----------------------------------------");
+ 		//System.out.println("----------------------------------------");
 		String payload = String.valueOf(incomingPayload);
-		System.out.println("Received the following payload: " + payload);
+		//System.out.println("Received the following payload: " + payload);
         Json incoming = Json.parse(payload);
 
-        //setting up id's one time only
-        if(p1.id == 0){
-            p1.id = incoming.getDouble("player");
-        }else if(p2.id == 0.0 && p1.id != 0.0 && incoming.getDouble("player") != p1.id){
-            p2.id = incoming.getDouble("player");
-        }else{     }
+		if(incoming.getString("playerData").equals("true")){
+			playerData = true;
+			//setting up id's one time only
+			if(p1.id == 0.0){
+				p1.id = incoming.getDouble("player");
+			}else if(p2.id == 0.0 && p1.id != 0.0 && incoming.getDouble("player") != p1.id){
+				p2.id = incoming.getDouble("player");
+			}else{     }
 
-        //---------------saving data sent from the client---------------
-        if(incoming.getDouble("player") == p1.id){
-            p1.x = (int)incoming.getDouble("x");
-            p1.y = (int)incoming.getDouble("y");
-            //p1.imageNum = (int)incoming.getDouble("imageNum");
-        }else if(incoming.getDouble("player") == p2.id){
-            p2.x = (int)incoming.getDouble("x");
-            p2.y = (int)incoming.getDouble("y");
-            //p2.imageNum = (int)incoming.getDouble("imageNum");
-        }else{
-            System.out.println("did not find the player the data was supposed to be sent to");
-            //this game only supports 2 players at this point
-        }
+			//---------------saving data sent from the client---------------
+			if(incoming.getDouble("player") == p1.id){
+				p1.x = (int)incoming.getDouble("x");
+				p1.y = (int)incoming.getDouble("y");
+			}else if(incoming.getDouble("player") == p2.id){
+				p2.x = (int)incoming.getDouble("x");
+				p2.y = (int)incoming.getDouble("y");
+			}else{
+				System.out.println("did not find the player the data was supposed to be sent to");
+			}
+
+		}else{	//must be getting chat window data then
+			playerData = false;
+			if(incoming.getDouble("player") == p1.id)
+				messages.add("P1: " + (String)incoming.getString("incomingMessage").toString());
+			if(incoming.getDouble("player") == p2.id)
+				messages.add("P2: " + (String)incoming.getString("incomingMessage").toString());
+			System.out.println(messages);
+		}
 
 
 		//-----Make a response -- sending data of players back to the client --------
 		Json outgoing = Json.newObject();
-		//System.out.println("p1 image num: " + p1.imageNum + "   // p2 image num: " + p2.imageNum);
-		outgoing.add("Response", "Player data has been recieved, sending player data back to users");
-        outgoing.add("p1id", p1.id);
-		outgoing.add("p1x", p1.x);
-        outgoing.add("p1y", p1.y);
-		//outgoing.add("p1image", p1.imageNum);	//for animating on the other screen 
-		
-        outgoing.add("p2id", p2.id);
-		outgoing.add("p2x", p2.x);
-        outgoing.add("p2y", p2.y);
-		//outgoing.add("p2image", p2.imageNum);
-		
+		//if sending playuer dat back
+		if(playerData == true){
+			outgoing.add("playerData", "true"); 
+			outgoing.add("Response", "Player data has been recieved, sending player data back to users");
+			outgoing.add("p1id", p1.id);
+			outgoing.add("p1x", p1.x);
+			outgoing.add("p1y", p1.y);
+			
+			outgoing.add("p2id", p2.id);
+			outgoing.add("p2x", p2.x);
+			outgoing.add("p2y", p2.y);
+			Json tmpList = Json.newList();
+			outgoing.add("messages", tmpList);
+			for(int i = 0; i < messages.size(); i++)
+				tmpList.add(messages.get(i));
+		}
+
+		//if sending message information back 
+		if(playerData == false){
+			outgoing.add("message", incomingMessage);
+		}
+
 		String response = outgoing.toString();
 
 
 		//-------------------Send HTTP headers----------------------------
-		System.out.println("----------The server replied: ----------");
+		//System.out.println("----------The server replied: ----------");
 		String dateString = getServerTime();
 		PrintWriter out = new PrintWriter(os, true);
 		sendLine(out, "HTTP/1.1 200 OK");
@@ -153,13 +171,15 @@ class Server
 		// Send the response
 		sendLine(out, response);
 		out.flush();
-	}
+
+	}//end on post method
 
 	public static void main(String[] args) throws Exception
 	{
         //ArrayList playerList = new ArrayList<Player>();
         Player p1 = new Player();
-        Player p2 = new Player();
+		Player p2 = new Player();
+		ArrayList messages = new ArrayList<String>();
 
 
 		// Make a socket to listen for clients
@@ -186,10 +206,7 @@ class Server
 			int requestType = 0;
 			int contentLength = 0;
 			String url = "";
-			System.out.println("----------A client said: ----------");
-			while ((headerLine = in.readLine()) != null)
-			{
-				System.out.println(headerLine);
+			while ((headerLine = in.readLine()) != null){
 				if(headerLine.length() > 3 && headerLine.substring(0, 4).equals("GET "))
 				{
 					requestType = 1;
@@ -207,20 +224,17 @@ class Server
 			}
 
 			// Send a response
-			if(requestType == 1)
-			{
+			if(requestType == 1){
 				onGet(os, url);
 			}
-			else if(requestType == 2)
-			{
+			else if(requestType == 2){
 				// Read the incoming payload
 				char[] incomingPayload = new char[contentLength];
 				in.read(incomingPayload, 0, contentLength);
 				String blobHead = incomingPayload.length < 60 ? new String(incomingPayload) : new String(incomingPayload, 0, 60) + "...";
-				System.out.println(blobHead);
-				onPost(os, url, incomingPayload, p1, p2); //added players into here
-			}
-			else
+				//System.out.println(blobHead);
+				onPost(os, url, incomingPayload, p1, p2, messages); //added players into here
+			}else
 				System.out.println("Received bad headers. Ignoring.");
 
 			// Hang up

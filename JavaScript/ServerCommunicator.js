@@ -11,10 +11,10 @@ function httpPost(url, payload, callback)
 			callback(request.responseText);
 			else
 			{
-				if(request.status == 0 && request.statusText.length == 0)
-					alert("Connection failed");
-				else
-					alert("Server returned status " + request.status + ", " + request.statusText);
+				//if(request.status == 0 && request.statusText.length == 0)
+					//alert("Connection failed");
+				//else
+					//alert("Server returned status " + request.status + ", " + request.statusText);
 			}
 		}
 	};
@@ -28,35 +28,39 @@ function httpPost(url, payload, callback)
 function cb(response)   {
 
 	// Parse the JSON  
-    let ob = JSON.parse(response);
+	let ob = JSON.parse(response);
+		console.log(ob);
     
     //giving data from server to the game
-    //saves the data in the other player
-    if(ob.p1id == thisPlayerID){	//if this character is player 1
-        game.model.otherPlayer.x = ob.p2x;
-        game.model.otherPlayer.y = ob.p2y;
-		//game.model.otherPlayer.marioImageCounter = ob.p2image;
-		//game.model.otherPlayer.image = game.model.mario.images[ (ob.p2image/5) % 25];
-		//game.model.otherPlayer.image = game.model.otherPlayer.images[3];
-		game.model.otherPlayer.image = game.model.otherPlayer.turtle;
-    }
-    if(ob.p2id == thisPlayerID){	//if this character is player 2
-        game.model.otherPlayer.x = ob.p1x;
-        game.model.otherPlayer.y = ob.p1y;
-		//game.model.otherPlayer.marioImageCounter = ob.p1image;
-		//game.model.otherPlayer.image = game.model.mario.images[ (ob.p1image/5) % 25];
-		game.model.mario.image = game.model.otherPlayer.turtle; //draw self as turtle
+	//saves the data in the other player
+	if(ob.playerData == "true"){
+		if(ob.p1id == thisPlayerID){	//if this character is player 1
+			game.model.otherPlayer.x = ob.p2x;
+			game.model.otherPlayer.y = ob.p2y;
+			game.model.otherPlayer.image = game.model.otherPlayer.turtle;
+		}
+		if(ob.p2id == thisPlayerID){	//if this character is player 2
+			game.model.otherPlayer.x = ob.p1x;
+			game.model.otherPlayer.y = ob.p1y;
+			game.model.mario.image = game.model.otherPlayer.turtle; //draw self as turtle
+		}
 
-    }
+		//drawing chat window messages
+		console.log("message gotten from server is: " + ob.message);
+		document.getElementById("chatHistory").innerHTML = "";
+		for(const str of ob.messages){
+			message = str;
+			document.getElementById("chatHistory").innerHTML += "<option>" + message +"</option>"
+		}
+	}
 
-	console.log("Player 1 data is: x = " + ob.p1x + " // y = " + ob.p1y + "// id = " + ob.p1id + "// image = " + ob.p1image);
-	console.log("Player 2 data is: x = " + ob.p2x + " // y = " + ob.p2y + "// id = " + ob.p2id + "// image = " + ob.p2image);
-}
+}//end cb method
 
 function sendToServer() {
 
 	// Make a JSON blob to send to this server
-    let ob = {};
+	let ob = {};
+	ob.playerData = "true"
     ob.player = thisPlayerID;
 	ob.x = game.model.mario.x;   //should get the values from mario on this instance
     ob.y = game.model.mario.y;
@@ -64,5 +68,16 @@ function sendToServer() {
 	let json_string = JSON.stringify(ob);
 
 	// Send the JSON blob to the server
+	httpPost("ajax_handler.html", json_string, cb);
+}
+
+function sendMessageToServer(){
+	let ob = {};
+	ob.playerData = "false";
+	ob.player = thisPlayerID;
+	ob.incomingMessage = document.getElementById("message").value;
+
+	let json_string = JSON.stringify(ob);
+
 	httpPost("ajax_handler.html", json_string, cb);
 }
