@@ -1,9 +1,18 @@
+import pygame
+import time
+import Model
+
+from Model import *
+from pygame.locals import *
+from time import sleep
+
 class Controller():
 	def __init__(self, model):
 		self.model = model
 		self.keep_going = True
 
 	def update(self):
+		#telling game when to quit
 		for event in pygame.event.get():
 			if event.type == QUIT:
 				self.keep_going = False
@@ -12,6 +21,8 @@ class Controller():
 					self.keep_going = False
 			elif event.type == pygame.MOUSEBUTTONUP:
 				self.model.set_dest(pygame.mouse.get_pos())
+
+		#user input for controlling mario
 		keys = pygame.key.get_pressed()
 		if keys[K_LEFT]:
 			self.model.dest_x -= 1

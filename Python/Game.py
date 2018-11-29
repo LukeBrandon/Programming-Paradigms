@@ -1,5 +1,17 @@
+import pygame
+import time
+import View, Model, Controller
+
+from View import *
+from Model import *
+from Controller import *
+
+from pygame.locals import *
+from time import sleep
+
 class Game():
-    def__init__(self):
+    def __init__(self):  
+        print ('Game Constructor')
 
     print("Use the arrow keys to move. Press Esc to quit.")
     pygame.init()

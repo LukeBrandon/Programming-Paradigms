@@ -1,0 +1,1 @@
+echo "type 'python Game.py' in your command line to play the game"

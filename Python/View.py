@@ -1,3 +1,11 @@
+import pygame
+import time
+import Model
+
+from Model import *
+from pygame.locals import*
+from time import sleep
+
 class View():
 	def __init__(self, model):
 		screen_size = (800,600)
