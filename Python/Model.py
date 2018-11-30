@@ -13,7 +13,7 @@ class Model():
 		self.dest_y = 0
 		self.mario = Mario(self)
 		self.sprites = []
-		self.sprites.insert(self.mario)
+		#self.sprites.insert(self.mario)
 		#unmarshall()
 
 
@@ -39,6 +39,6 @@ class Model():
 
 		for i in data["sprites"]:
 			print (data["sprites"].get(i))
-			self.sprites.insert(data["sprites"].get(i))
+			#self.sprites.insert(data["sprites"].get(i))
 
 

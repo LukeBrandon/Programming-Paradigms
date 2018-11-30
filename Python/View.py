@@ -7,6 +7,8 @@ from pygame.locals import*
 from time import sleep
 
 class View():
+	keep_going = True
+
 	def __init__(self, model):
 		screen_size = (800,600)
 		self.screen = pygame.display.set_mode(screen_size, 32)
