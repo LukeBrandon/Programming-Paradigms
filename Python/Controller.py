@@ -25,10 +25,10 @@ class Controller():
 		#user input for controlling mario
 		keys = pygame.key.get_pressed()
 		if keys[K_LEFT]:
-			self.model.dest_x -= 1
+			self.model.mario.x -= 1
 		if keys[K_RIGHT]:
-			self.model.dest_x += 1
+			self.model.mario.x += 1
 		if keys[K_UP]:
-			self.model.dest_y -= 1
+			self.model.mario.y -= 1
 		if keys[K_DOWN]:
-			self.model.dest_y += 1
+			self.model.mario.y += 1

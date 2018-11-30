@@ -16,7 +16,8 @@ class View():
 		self.model = model
 		self.model.rect = self.turtle_image.get_rect()
 
+
 	def update(self):    
 		self.screen.fill([0,200,100])
-		self.screen.blit(self.turtle_image, self.model.rect)
+		self.model.mario.draw(self.screen)
 		pygame.display.flip()
