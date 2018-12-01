@@ -27,10 +27,10 @@ class Controller():
 		#user input for controlling mario
 		keys = pygame.key.get_pressed()
 		if keys[K_LEFT]:
-			self.model.screenPos -= 10
+			self.model.mario.x -= 10
 			self.model.mario.animateMario("left")
 		if keys[K_RIGHT]:
-			self.model.screenPos += 10
+			self.model.mario.x += 10
 			self.model.mario.animateMario("right")
 		if keys[K_UP]:
 			self.model.mario.y -= 10

@@ -18,6 +18,7 @@ class Model():
 
 
 	def update(self):
+		self.screenPos = self.mario.x - 150
 		self.mario.update(self)
 
 	def set_dest(self, pos):

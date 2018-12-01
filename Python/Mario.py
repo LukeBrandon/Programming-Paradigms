@@ -20,8 +20,6 @@ class Mario(Sprite):
 
 
     def update(self, model):
-        #keeps mario locked on one point as screen scrolls
-        self.x = self.model.screenPos + 150
 
         #gravity
         self.vertVel += 3.5
