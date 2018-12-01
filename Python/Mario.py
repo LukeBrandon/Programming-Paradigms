@@ -1,4 +1,5 @@
 import pygame
+import math
 from Coin import *
 from CoinBlock import *
 from Goomba import *
@@ -37,6 +38,7 @@ class Mario(Sprite):
 
 
     def draw(self, screen):
+        print (self.currentImageIndex)
         #meaning animating right
         if (self.currentImageIndex <= 4):
             screen.blit(self.marioImages[self.currentImageIndex], (self.x, self.y))
@@ -45,13 +47,13 @@ class Mario(Sprite):
             screen.blit(self.leftMarioImages[ self.currentImageIndex - 5 ], (self.x, self.y))
 
     def animateMario(self, direction):
-        self.marioImageCounter += 5
+        self.marioImageCounter += 1
 
         if direction == "right":
-            self.currentImageIndex = (self.marioImageCounter/5) % 20
+            self.currentImageIndex = math.floor(self.marioImageCounter/5) % 5
 
         if direction == "left":
-            self.currentImageIndex = ((self.marioImageCounter/5) % 20) + 5 #left mario indexes are > 5
+            self.currentImageIndex = (math.floor(self.marioImageCounter/5) % 5) + 5 #left mario indexes are > 5
 
 
     def lazyLoad(self):
@@ -63,6 +65,7 @@ class Mario(Sprite):
             pygame.image.load("images/mario4.png"),
             pygame.image.load("images/mario5.png")
         ]
+
         self.leftMarioImages = [
             pygame.image.load("images/leftMario1.png"), 
             pygame.image.load("images/leftMario2.png"),

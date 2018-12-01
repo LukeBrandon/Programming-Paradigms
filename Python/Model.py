@@ -14,7 +14,7 @@ class Model():
 		self.screenPos = 0
 		self.brick = Brick(self, 300, 400, 300, 100)
 		#self.sprites.insert(self.mario)
-		#unmarshall()
+		#self.unmarshall()
 
 
 	def update(self):
