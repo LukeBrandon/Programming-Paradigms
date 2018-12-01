@@ -33,12 +33,17 @@ class Mario(Sprite):
             self.y = 400
             self.lastTouchCounter = 0
 
+        thisSprite = self.model.brick
+        colliding = self.collides(thisSprite)
+        if colliding:
+            print('collides with brick')
+            self.pushOut(thisSprite)
+
         for x in self.model.sprites:
             print('for looping: at' + x)
 
 
     def draw(self, screen):
-        print (self.currentImageIndex)
         #meaning animating right
         if (self.currentImageIndex <= 4):
             screen.blit(self.marioImages[self.currentImageIndex], (self.x, self.y))
@@ -56,8 +61,11 @@ class Mario(Sprite):
             self.currentImageIndex = (math.floor(self.marioImageCounter/5) % 5) + 5 #left mario indexes are > 5
 
 
+    def oldPosition(self):
+        self.prevX = self.x
+        self.prevY = self.y
+
     def lazyLoad(self):
-        print ('lazy load mario images')
         self.marioImages = [
             pygame.image.load("images/mario1.png"), 
             pygame.image.load("images/mario2.png"),

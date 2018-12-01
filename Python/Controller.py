@@ -12,6 +12,8 @@ class Controller():
 		self.keep_going = True
 
 	def update(self):
+		self.model.mario.oldPosition() #remimbering old position
+
 		#telling game when to quit
 		for event in pygame.event.get():
 			if event.type == QUIT:
