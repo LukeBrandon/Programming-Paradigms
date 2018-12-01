@@ -12,7 +12,7 @@ class Model():
 		self.mario = Mario(self)
 		self.sprites = []
 		self.screenPos = 0
-		self.brick = Brick(self, 300, 300, 100, 10)
+		self.brick = Brick(self, 300, 400, 300, 100)
 		#self.sprites.insert(self.mario)
 		#unmarshall()
 

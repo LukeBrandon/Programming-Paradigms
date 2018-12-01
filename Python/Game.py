@@ -13,7 +13,6 @@ class Game():
     def __init__(self):  
         print ('Game Constructor')
 
-    print("Use the arrow keys to move. Press Esc to quit.")
     pygame.init()
     m = Model()
     v = View(m)
@@ -23,5 +22,4 @@ class Game():
         m.update()
         v.update()
         sleep(0.04)
-    print("Goodbye")
         

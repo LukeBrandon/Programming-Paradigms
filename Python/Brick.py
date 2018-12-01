@@ -13,7 +13,7 @@ class Brick(Sprite):
         print ('brick update')
 
     def draw(self, screen):
-        pygame.draw.rect(screen, (255,255,255), [self.x-self.model.screenPos, self.y, self.x+self.w, self.y + self.h], 3)
+        pygame.draw.rect(screen, (255,255,255), [self.x-self.model.screenPos, self.y, self.w, self.h], 3)
 
         
 

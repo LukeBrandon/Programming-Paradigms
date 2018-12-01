@@ -22,4 +22,5 @@ class View():
 		self.screen.fill([0,200,100])
 		self.model.mario.draw(self.screen)
 		self.model.brick.draw(self.screen)
+		pygame.draw.line(self.screen, (255,255,255), (0, 495), (1000, 495), 3)
 		pygame.display.flip()
