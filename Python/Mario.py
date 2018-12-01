@@ -7,7 +7,7 @@ from Sprite import *
 
 class Mario(Sprite):
     def __init__(self, _model):  
-        super(Mario, self).__init__(0,0,0,0)
+        super(Mario, self).__init__(0,0,60,95)
         self.model = _model
         self.marioImageCounter = 0
         self.marioImages = []
@@ -21,7 +21,7 @@ class Mario(Sprite):
 
     def update(self, model):
         #keeps mario locked on one point as screen scrolls
-        self.x = 150
+        self.x = self.model.screenPos + 150
 
         #gravity
         self.vertVel += 3.5
@@ -33,23 +33,22 @@ class Mario(Sprite):
             self.y = 400
             self.lastTouchCounter = 0
 
+        #iterate all sprites here
         thisSprite = self.model.brick
         colliding = self.collides(thisSprite)
+        print (colliding)
         if colliding:
             print('collides with brick')
-            self.pushOut(thisSprite)
-
-        for x in self.model.sprites:
-            print('for looping: at' + x)
+            direction = self.pushOut(thisSprite)
 
 
     def draw(self, screen):
         #meaning animating right
         if (self.currentImageIndex <= 4):
-            screen.blit(self.marioImages[self.currentImageIndex], (self.x, self.y))
+            screen.blit(self.marioImages[self.currentImageIndex], (self.x - self.model.screenPos, self.y))
         #meaning animating left
         if(self.currentImageIndex > 4):
-            screen.blit(self.leftMarioImages[ self.currentImageIndex - 5 ], (self.x, self.y))
+            screen.blit(self.leftMarioImages[ self.currentImageIndex - 5 ], (self.x - self.model.screenPos, self.y))
 
     def animateMario(self, direction):
         self.marioImageCounter += 1

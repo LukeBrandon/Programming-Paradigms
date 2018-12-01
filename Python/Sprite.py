@@ -65,7 +65,7 @@ class Sprite(object):
         elif(self.x <= (that.x + that.w) and not(self.prevX < (that.x + that.w) )): 
             self.x = that.x + that.w
             return "right"
-
+            
         else:
             return "not"
 
