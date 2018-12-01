@@ -19,7 +19,7 @@ class Mario(Sprite):
         isMario = True
 
 
-    def update(self, model):
+    def update(self):
 
         #gravity
         self.vertVel += 3.5
@@ -34,10 +34,18 @@ class Mario(Sprite):
         #iterate all sprites here
         thisSprite = self.model.brick
         colliding = self.collides(thisSprite)
-        print (colliding)
         if colliding:
-            print('collides with brick')
             direction = self.pushOut(thisSprite)
+
+        #temporary to test coin block
+        thisSprite = self.model.coinBlock
+        colliding = self.collides(thisSprite)
+        if colliding:
+            direction = self.pushOut(thisSprite)
+
+            if direction == "bottom":# and thisSprite.isCoinBlock == True:
+                print('should eject coin')
+                thisSprite.ejectCoin()
 
 
     def draw(self, screen):

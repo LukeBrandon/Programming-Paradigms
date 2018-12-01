@@ -8,9 +8,8 @@ class Brick(Sprite):
         self.model = model
         isBrick = True
 
-
-    def update(self, model):
-        print ('brick update')
+    def update(self):
+        pass
 
     def draw(self, screen):
         pygame.draw.rect(screen, (255,255,255), [self.x-self.model.screenPos, self.y, self.w, self.h], 3)

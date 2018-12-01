@@ -17,6 +17,7 @@ class Sprite(object):
         self.h = h
         self.prevX = 0
         self.prevY = 0
+        self.vertVel = 0.0
         self.isMario = False
         self.isBrick = False
         self.isCoin = False
@@ -24,7 +25,7 @@ class Sprite(object):
         self.isGoomba = False
 
     def update(self):
-        print('Sprite update method')
+        pass
 
     def draw(self):
         print('Sprite draw Method')
@@ -65,7 +66,7 @@ class Sprite(object):
         elif(self.x <= (that.x + that.w) and not(self.prevX < (that.x + that.w) )): 
             self.x = that.x + that.w
             return "right"
-            
+
         else:
             return "not"
 

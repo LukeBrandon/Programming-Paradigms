@@ -2,6 +2,8 @@ import json
 
 from Mario import *
 from Brick import *
+from Coin import *
+from CoinBlock import *
 from json import *
 
 class Model():
@@ -12,14 +14,21 @@ class Model():
 		self.mario = Mario(self)
 		self.sprites = []
 		self.screenPos = 0
+
 		self.brick = Brick(self, 300, 400, 300, 100)
-		#self.sprites.insert(self.mario)
+		self.coinBlock = CoinBlock(self, 300, 225, 50, 50)
+		self.sprites.insert(len(self.sprites), self.mario)
+		self.sprites.insert(len(self.sprites), self.brick)
+		self.sprites.insert(len(self.sprites), self.coinBlock)
 		#self.unmarshall()
 
 
 	def update(self):
 		self.screenPos = self.mario.x - 150
-		self.mario.update(self)
+
+		#update all sprites here
+		for x in self.sprites:
+			x.update()
 
 	def set_dest(self, pos):
 		self.dest_x = pos[0]
