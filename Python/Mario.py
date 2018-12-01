@@ -20,7 +20,6 @@ class Mario(Sprite):
 
 
     def update(self):
-
         #gravity
         self.vertVel += 3.5
         self.y += self.vertVel
@@ -40,6 +39,7 @@ class Mario(Sprite):
         #temporary to test coin block
         thisSprite = self.model.coinBlock
         colliding = self.collides(thisSprite)
+        
         if colliding:
             direction = self.pushOut(thisSprite)
 

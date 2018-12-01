@@ -35,7 +35,6 @@ class Model():
 		self.dest_y = pos[1]
 
 	def unmarshall(self):
-		print('marshalling map.json')
 		with open('map.json') as map_file:
 			data = json.load(map_file)
 		#print(data)
