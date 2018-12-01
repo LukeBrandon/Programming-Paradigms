@@ -28,8 +28,7 @@ class CoinBlock(Sprite):
 
     def ejectCoin(self):
         tempCoin = Coin(self.model, self.x + 4, self.y, 30 ,30)
-        sprites = self.model.sprites
-        sprites.insert(len(sprites), tempCoin)
+        self.model.sprites.insert(len(self.model.sprites), tempCoin)
         self.coins -= 1
 
     def lazyLoad(self):
