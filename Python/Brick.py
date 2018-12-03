@@ -6,7 +6,7 @@ class Brick(Sprite):
     def __init__(self, model, x, y, w, h):
         super(Brick, self).__init__(x,y,w,h)
         self.model = model
-        isBrick = True
+        self.isBrick = True
 
     def update(self):
         pass

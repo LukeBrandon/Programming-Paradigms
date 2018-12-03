@@ -4,7 +4,7 @@ from Sprite import *
 class Goomba(Sprite):
     def __init__(self):  
         print('goomba constructor')
-        isGoomba = True
+        self.isGoomba = True
 
     def update(self):
         print ('goomba update')

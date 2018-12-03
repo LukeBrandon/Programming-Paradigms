@@ -11,12 +11,12 @@ class Mario(Sprite):
         self.model = _model
         self.marioImageCounter = 0
         self.marioImages = []
-        self.leftMarioImages =[]
+        self.leftMarioImages = []
         self.lazyLoad()
         self.currentImageIndex = 0
         self.vertVel = 1.0
         self.lastTouchCounter = 0
-        isMario = True
+        self.isMario = True
 
 
     def update(self):
@@ -31,21 +31,19 @@ class Mario(Sprite):
             self.lastTouchCounter = 0
 
         #iterate all sprites here
-        thisSprite = self.model.brick
-        colliding = self.collides(thisSprite)
-        if colliding:
-            direction = self.pushOut(thisSprite)
+        for x in range (0,len(self.model.sprites)-1):
+            print (x)
+            thisSprite = self.model.sprites[x]
+            
+            if self.collides(thisSprite):
+                direction = self.pushOut(thisSprite)
 
-        #temporary to test coin block
-        thisSprite = self.model.coinBlock
-        colliding = self.collides(thisSprite)
-        
-        if colliding:
-            direction = self.pushOut(thisSprite)
+                print(thisSprite.isCoinBlock)
 
-            if direction == "bottom":# and thisSprite.isCoinBlock == True:
-                print('should eject coin')
-                thisSprite.ejectCoin()
+                if direction == "bottom" and thisSprite.isCoinBlock == True and thisSprite.coins > 0:
+                    tempCoin = Coin(self.model, (thisSprite.x + 4), (thisSprite.y - 30), 0, 0)
+                    self.model.sprites.insert(len(self.model.sprites), tempCoin)
+                    thisSprite.coins -= 1
 
 
     def draw(self, screen):

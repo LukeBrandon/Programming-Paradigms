@@ -1,7 +1,7 @@
 import pygame
 
 from Sprite import *
-from Coin import *
+#from Coin import *
 
 class CoinBlock(Sprite):
     def __init__(self, model, x, y, w, h):
@@ -14,7 +14,7 @@ class CoinBlock(Sprite):
         self.imageIndex = 0
         self.coinBlockImages = []
         self.lazyLoad()
-        isCoinBlock = True
+        self.isCoinBlock = True
 
     def update(self):
         if self.coins < 1:
@@ -22,20 +22,8 @@ class CoinBlock(Sprite):
         else:
             self.imageIndex = 0
 
-        if self.shouldEjectCoin == True:
-            tempCoin = Coin(self.model, (self.x + 4), self.y, 30 ,30)
-            self.model.sprites.insert(len(self.model.sprites), tempCoin)
-            self.coins -= 1
-            self.ejectCoin = False
-
     def draw(self, screen):
         screen.blit(self.coinBlockImages[self.imageIndex], (self.x - self.model.screenPos, self.y))
-
-    def ejectCoin(self):
-        self.shouldEjectCoin = True
-        # tempCoin = Coin(self.model, (self.x + 4), self.y, 30 ,30)
-        # self.model.sprites.insert(len(self.model.sprites), tempCoin)
-        # self.coins -= 1
 
     def lazyLoad(self):
         self.coinBlockImages = [
