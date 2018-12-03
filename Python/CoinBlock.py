@@ -4,17 +4,16 @@ from Sprite import *
 from Coin import *
 
 class CoinBlock(Sprite):
-
     def __init__(self, model, x, y, w, h):
         super(CoinBlock, self).__init__(x,y,w,h)  
         self.w = 50
         self.h = 50
         self.model = model
         self.coins = 5
+        self.shouldEjectCoin = False
         self.imageIndex = 0
         self.coinBlockImages = []
         self.lazyLoad()
-
         isCoinBlock = True
 
     def update(self):
@@ -23,13 +22,20 @@ class CoinBlock(Sprite):
         else:
             self.imageIndex = 0
 
+        if self.shouldEjectCoin == True:
+            tempCoin = Coin(self.model, (self.x + 4), self.y, 30 ,30)
+            self.model.sprites.insert(len(self.model.sprites), tempCoin)
+            self.coins -= 1
+            self.ejectCoin = False
+
     def draw(self, screen):
         screen.blit(self.coinBlockImages[self.imageIndex], (self.x - self.model.screenPos, self.y))
 
     def ejectCoin(self):
-        tempCoin = Coin(self.model, (self.x + 4), self.y, 30 ,30)
-        self.model.sprites.insert(len(self.model.sprites), tempCoin)
-        self.coins -= 1
+        self.shouldEjectCoin = True
+        # tempCoin = Coin(self.model, (self.x + 4), self.y, 30 ,30)
+        # self.model.sprites.insert(len(self.model.sprites), tempCoin)
+        # self.coins -= 1
 
     def lazyLoad(self):
         self.coinBlockImages = [
