@@ -27,7 +27,7 @@ class CoinBlock(Sprite):
         screen.blit(self.coinBlockImages[self.imageIndex], (self.x - self.model.screenPos, self.y))
 
     def ejectCoin(self):
-        tempCoin = Coin(self.model, self.x + 4, self.y, 30 ,30)
+        tempCoin = Coin(self.model, (self.x + 4), self.y, 30 ,30)
         self.model.sprites.insert(len(self.model.sprites), tempCoin)
         self.coins -= 1
 
