@@ -31,14 +31,14 @@ class Mario(Sprite):
             self.lastTouchCounter = 0
 
         #iterate all sprites here
-        for x in range (0,len(self.model.sprites)-1):
+        for x in range (0,len(self.model.sprites)):
             print (x)
             thisSprite = self.model.sprites[x]
             
             if self.collides(thisSprite):
                 direction = self.pushOut(thisSprite)
 
-                print(thisSprite.isCoinBlock)
+                #print(thisSprite.isCoinBlock)
 
                 if direction == "bottom" and thisSprite.isCoinBlock == True and thisSprite.coins > 0:
                     tempCoin = Coin(self.model, (thisSprite.x + 4), (thisSprite.y - 30), 0, 0)
