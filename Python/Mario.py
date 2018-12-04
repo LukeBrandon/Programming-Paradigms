@@ -7,7 +7,7 @@ from Sprite import *
 
 class Mario(Sprite):
     def __init__(self, _model):  
-        super(Mario, self).__init__(0,0,60,95)
+        super(Mario, self).__init__(150,300,60,95)
         self.model = _model
         self.marioImageCounter = 0
         self.marioImages = []
@@ -25,20 +25,12 @@ class Mario(Sprite):
         self.y += self.vertVel
         self.lastTouchCounter += 1 #increments lastTouchCounter unless on the ground
 
-        if self.y > 400:
-            self.vertVel = 0.0
-            self.y = 400
-            self.lastTouchCounter = 0
-
         #iterate all sprites here
         for x in range (0,len(self.model.sprites)):
-            print (x)
             thisSprite = self.model.sprites[x]
             
             if self.collides(thisSprite):
                 direction = self.pushOut(thisSprite)
-
-                #print(thisSprite.isCoinBlock)
 
                 if direction == "bottom" and thisSprite.isCoinBlock == True and thisSprite.coins > 0:
                     tempCoin = Coin(self.model, (thisSprite.x + 4), (thisSprite.y - 30), 0, 0)

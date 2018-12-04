@@ -25,5 +25,4 @@ class View():
 		for x in self.model.sprites:
 			x.draw(self.screen)
 
-		pygame.draw.line(self.screen, (255,255,255), (0, 495), (1000, 495), 3)
 		pygame.display.flip()
