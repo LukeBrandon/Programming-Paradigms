@@ -41,10 +41,10 @@ class Mario(Sprite):
     def draw(self, screen):
         #meaning animating right
         if (self.currentImageIndex <= 4):
-            screen.blit(self.marioImages[self.currentImageIndex], (self.x - self.model.screenPos, self.y))
+            screen.blit(self.marioImages[int(self.currentImageIndex)], (self.x - self.model.screenPos, self.y))
         #meaning animating left
         if(self.currentImageIndex > 4):
-            screen.blit(self.leftMarioImages[ self.currentImageIndex - 5 ], (self.x - self.model.screenPos, self.y))
+            screen.blit(self.leftMarioImages[int(self.currentImageIndex - 5) ], (self.x - self.model.screenPos, self.y))
 
     def animateMario(self, direction):
         self.marioImageCounter += 1
