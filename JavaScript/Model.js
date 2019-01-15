@@ -38,6 +38,9 @@ class Model{
 		this.sprites.push(this.coinblock2);
 		this.coinblock3 = new CoinBlock(600, 205, this);
 		this.sprites.push(this.coinblock3);
+
+		this.flag = new Flag(600, 0, this);
+		this.sprites.push(this.flag);
 	}
 
 }//end model class

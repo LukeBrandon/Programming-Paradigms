@@ -32,7 +32,11 @@ class Mario extends Sprite{
                 let dir = this.pushOut(thatSprite);
                 if(dir == "bottom" && thatSprite.isCoinBlock)
                     thatSprite.ejectCoin();
+                if(thatSprite.isFlag){
+                    this.marioWon();
+                }
             }
+
         }//end iterating sprites
         
     }//end mario update
@@ -158,6 +162,13 @@ class Mario extends Sprite{
         this.leftImages.push(this.leftImage3);
         this.leftImages.push(this.leftImage4);
         this.leftImages.push(this.leftImage5);
+    }
+
+    marioWon(){
+        console.log("mario won!");
+        this.x = this.x;
+        this.y = this.y;
+        
     }
 
 }

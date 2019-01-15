@@ -23,8 +23,7 @@ class View{
         ctx.stroke();
 
         //draws all sprites
-        for(let i = 0; i < this.model.sprites.length; i++)
-        {
+        for(let i = 0; i < this.model.sprites.length; i++) {
             this.model.sprites[i].draw(ctx);
         }
     }

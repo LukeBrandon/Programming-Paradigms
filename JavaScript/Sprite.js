@@ -9,6 +9,7 @@ class Sprite{
 		this.isBrick = false;
 		this.isMario = false;
 		this.isCoin = false;
+		this.isFlag = false;
 	}
 
 
