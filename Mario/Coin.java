@@ -79,7 +79,7 @@ class Coin extends Sprite{
     void lazyLoad(){
 		if(coinImage == null){
 			try{
-				coinImage = ImageIO.read(new File("coinImage.png"));
+				coinImage = ImageIO.read(new File("images/coinImage.png"));
 			}catch(Exception e){}
         }
     }

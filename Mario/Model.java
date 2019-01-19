@@ -17,7 +17,7 @@ class Model{
 		//lazy load background image
 		if(backgroundImage == null){
 			try{
-				backgroundImage = ImageIO.read(new File("background.png"));
+				backgroundImage = ImageIO.read(new File("images/background.png"));
 			}catch(Exception e){}
 		}
 		this.unmarshal();

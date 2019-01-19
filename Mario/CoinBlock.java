@@ -74,8 +74,8 @@ class CoinBlock extends Sprite{
     void lazyLoad(){
         if(coinBlockImage == null){
 			try{
-				coinBlockImage = ImageIO.read(new File("coinBlock.png"));
-                emptyBlockImage = ImageIO.read(new File("depletedCoinBlock.png"));
+				coinBlockImage = ImageIO.read(new File("images/coinBlock.png"));
+                emptyBlockImage = ImageIO.read(new File("images/depletedCoinBlock.png"));
                 
 			}catch(Exception e){}
         }

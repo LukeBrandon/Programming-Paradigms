@@ -144,21 +144,21 @@ class Mario extends Sprite{
 		if(rightMarioImages == null){
 			rightMarioImages = new Image[5];
 			try{
-				rightMarioImages[0] = ImageIO.read(new File("mario1.png"));
-				rightMarioImages[1] = ImageIO.read(new File("mario2.png"));
-				rightMarioImages[2] = ImageIO.read(new File("mario3.png"));
-				rightMarioImages[3] = ImageIO.read(new File("mario4.png"));
-				rightMarioImages[4] = ImageIO.read(new File("mario5.png"));
+				rightMarioImages[0] = ImageIO.read(new File("images/mario1.png"));
+				rightMarioImages[1] = ImageIO.read(new File("images/mario2.png"));
+				rightMarioImages[2] = ImageIO.read(new File("images/mario3.png"));
+				rightMarioImages[3] = ImageIO.read(new File("images/mario4.png"));
+				rightMarioImages[4] = ImageIO.read(new File("images/mario5.png"));
 			}catch(IOException e){}
 		}
 		if(leftMarioImages == null){
 			leftMarioImages = new Image[5];
 			try{
-				leftMarioImages[0] = ImageIO.read(new File("leftMario1.png"));
-				leftMarioImages[1] = ImageIO.read(new File("leftMario2.png"));
-				leftMarioImages[2] = ImageIO.read(new File("leftMario3.png"));
-				leftMarioImages[3] = ImageIO.read(new File("leftMario4.png"));
-				leftMarioImages[4] = ImageIO.read(new File("leftMario5.png"));
+				leftMarioImages[0] = ImageIO.read(new File("images/leftMario1.png"));
+				leftMarioImages[1] = ImageIO.read(new File("images/leftMario2.png"));
+				leftMarioImages[2] = ImageIO.read(new File("images/leftMario3.png"));
+				leftMarioImages[3] = ImageIO.read(new File("images/leftMario4.png"));
+				leftMarioImages[4] = ImageIO.read(new File("images/leftMario5.png"));
 			}catch(IOException e){}
         }//end lazy loading
 
